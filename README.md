@@ -1,5 +1,5 @@
 # cosc360Project
 # Jason
-# Nick
+# Nick Schaad
 # Lily
 # Jasper

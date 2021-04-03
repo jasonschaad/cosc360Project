@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 03, 2021 at 02:28 AM
+-- Generation Time: Apr 03, 2021 at 03:07 AM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `category` (
-  `categoryId` int(11) NOT NULL,
+  `ID` int(11) NOT NULL,
   `categoryName` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -36,7 +36,7 @@ CREATE TABLE `category` (
 -- Dumping data for table `category`
 --
 
-INSERT INTO `category` (`categoryId`, `categoryName`) VALUES
+INSERT INTO `category` (`ID`, `categoryName`) VALUES
 (1, 'Marvel Cinematic Universe'),
 (2, 'World of Warcraft'),
 (3, 'Pokemon Go'),
@@ -49,7 +49,7 @@ INSERT INTO `category` (`categoryId`, `categoryName`) VALUES
 --
 
 CREATE TABLE `posts` (
-  `postId` int(11) NOT NULL,
+  `ID` int(11) NOT NULL,
   `postDate` datetime NOT NULL,
   `title` varchar(100) NOT NULL,
   `postContent` text NOT NULL,
@@ -61,7 +61,7 @@ CREATE TABLE `posts` (
 -- Dumping data for table `posts`
 --
 
-INSERT INTO `posts` (`postId`, `postDate`, `title`, `postContent`, `postUserId`, `postCategoryId`) VALUES
+INSERT INTO `posts` (`ID`, `postDate`, `title`, `postContent`, `postUserId`, `postCategoryId`) VALUES
 (1, '2021-04-02 16:03:51', 'Who would win if Thor and The Hulk fought to the death?', 'I don\'t know who would win, what do y\'all think?', 1, 1),
 (2, '2021-04-02 16:06:22', 'Jar Jar Binks is definitely a Jedi', 'it\'s all an act. He is secretly a jedi. There is no way JAR JAR BINKS can jump 20 feet without using the force.', 2, 4),
 (3, '2021-04-02 16:07:11', 'Fireball go brrrrrr', 'Phat fireball crit. Enjoy gamers. ', 3, 2),
@@ -74,7 +74,7 @@ INSERT INTO `posts` (`postId`, `postDate`, `title`, `postContent`, `postUserId`,
 --
 
 CREATE TABLE `replies` (
-  `replyId` int(11) NOT NULL,
+  `ID` int(11) NOT NULL,
   `content` text NOT NULL,
   `replyDate` datetime NOT NULL,
   `replyUserId` int(11) NOT NULL,
@@ -85,7 +85,7 @@ CREATE TABLE `replies` (
 -- Dumping data for table `replies`
 --
 
-INSERT INTO `replies` (`replyId`, `content`, `replyDate`, `replyUserId`, `replyPostId`) VALUES
+INSERT INTO `replies` (`ID`, `content`, `replyDate`, `replyUserId`, `replyPostId`) VALUES
 (1, 'Thor would definitely Win, Mjolnir goes too hard.', '2021-04-02 16:11:46', 2, 1);
 
 -- --------------------------------------------------------
@@ -95,7 +95,7 @@ INSERT INTO `replies` (`replyId`, `content`, `replyDate`, `replyUserId`, `replyP
 --
 
 CREATE TABLE `users` (
-  `userId` int(11) NOT NULL,
+  `ID` int(11) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `firstName` varchar(255) NOT NULL,
@@ -109,11 +109,11 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`userId`, `username`, `password`, `firstName`, `lastName`, `email`, `securityLevel`, `creationDate`) VALUES
-(1, 'testuser1', 'password', 'test1', 'user1', 'test1@gmail.vom', 2, '2021-04-02 15:51:55'),
-(2, 'testuser2', 'password', 'test2', 'user2', 'test2@gmail.com', 2, '2021-04-02 15:54:44'),
-(3, 'testuser3', 'password', 'test3', 'user3', 'test3@gmail.com', 2, '2021-04-02 15:55:38'),
-(4, 'testuser4', 'password', 'test4', 'user4', 'test4@gmail.com', 2, '2021-04-02 15:56:04');
+INSERT INTO `users` (`ID`, `username`, `password`, `firstName`, `lastName`, `email`, `securityLevel`, `creationDate`) VALUES
+(1, 'jason', '5f4dcc3b5aa765d61d8327deb882cf99', 'test1', 'user1', 'test1@gmail.vom', 2, '2021-04-02 15:51:55'),
+(2, 'nick', '5f4dcc3b5aa765d61d8327deb882cf99', 'test2', 'user2', 'test2@gmail.com', 2, '2021-04-02 15:54:44'),
+(3, 'lily', '5f4dcc3b5aa765d61d8327deb882cf99', 'test3', 'user3', 'test3@gmail.com', 2, '2021-04-02 15:55:38'),
+(4, 'jasper', '5f4dcc3b5aa765d61d8327deb882cf99', 'test4', 'user4', 'test4@gmail.com', 2, '2021-04-02 15:56:04');
 
 --
 -- Indexes for dumped tables
@@ -123,25 +123,25 @@ INSERT INTO `users` (`userId`, `username`, `password`, `firstName`, `lastName`, 
 -- Indexes for table `category`
 --
 ALTER TABLE `category`
-  ADD PRIMARY KEY (`categoryId`);
+  ADD PRIMARY KEY (`ID`);
 
 --
 -- Indexes for table `posts`
 --
 ALTER TABLE `posts`
-  ADD PRIMARY KEY (`postId`);
+  ADD PRIMARY KEY (`ID`);
 
 --
 -- Indexes for table `replies`
 --
 ALTER TABLE `replies`
-  ADD PRIMARY KEY (`replyId`);
+  ADD PRIMARY KEY (`ID`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`userId`);
+  ADD PRIMARY KEY (`ID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -151,25 +151,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `categoryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `postId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `replies`
 --
 ALTER TABLE `replies`
-  MODIFY `replyId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

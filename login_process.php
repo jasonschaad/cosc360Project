@@ -1,6 +1,10 @@
+<?php
+// Start the session
+session_start();
+?>
 <!DOCTYPE html>
 <head>
-<title>Lab9-2 Login Page</title>
+<title>Nerd Forum</title>
 </head>
 <body>
 <?php
@@ -14,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 else {
   // error message if not a post (prevents data being injected with a GET)
   $output = "<p>You may only access this page using the form provided.</p>";
-  $output .= "<p><a href='lab9-2.html'>Return to login page</a></p>";
+  $output .= "<p><a href='login.php'>Return to login page</a></p>";
   exit($output);
 }
 
@@ -54,7 +58,7 @@ else {
  
   $MD5Password = md5($pass);
  
-  $sql = "SELECT COUNT(*) FROM users WHERE username = ? AND password = ?";
+  $sql = "SELECT COUNT(*),securityLevel, firstName, lastName FROM users WHERE username = ? AND password = ?";
   $preparedStatement = mysqli_prepare($connection, $sql);
   if ($preparedStatement === false) {
     die("prepare failed: " . htmlspecialchars(mysqli_error($connection)));
@@ -62,7 +66,7 @@ else {
   
   mysqli_stmt_bind_param($preparedStatement, "ss", $username, $MD5Password); 
   mysqli_stmt_execute($preparedStatement);
-  mysqli_stmt_bind_result($preparedStatement, $num_rows);
+  mysqli_stmt_bind_result($preparedStatement, $num_rows, $securityLevel, $firstName, $lastName);
   mysqli_stmt_fetch($preparedStatement);
   
   // Close the statement
@@ -73,9 +77,17 @@ else {
    
   if ($num_rows == 1) {
    echo "<p>User has a valid account.</p>";
+   // Set session variables
+   $_SESSION["securityLevel"] = $securityLevel;
+   $_SESSION["firstName"] = $firstName;
+   $_SESSION["lastName"] = $lastName;
+   
+   header("Location: index.php");
   }
   else {
     echo "<p>The username and/or password are invalid.</p>";
+    // not authenticated
+    $_SESSION["SecurityLevel"] = 0;
   }
   
 }

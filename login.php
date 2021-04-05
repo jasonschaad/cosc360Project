@@ -25,6 +25,16 @@ login is your first name all lowercase
   <input type="submit" value="Login">
 </form>
 
+<br />
+
+<div id="forgotPassword">
+  <a href="forgotPassword.php">Forgot your password?</a>
+</div>
+
+<div id="createNewAccount">
+  <a href="url">Create new account</a>
+</div>
+
 </body>
 </html>
 

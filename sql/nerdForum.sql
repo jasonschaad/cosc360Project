@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 03, 2021 at 03:07 AM
+-- Generation Time: Apr 05, 2021 at 08:24 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -102,18 +102,19 @@ CREATE TABLE `users` (
   `lastName` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `securityLevel` int(11) NOT NULL COMMENT 'denotes a user''s security level. 2 == admin, 1 == user 0 == not a user',
-  `creationDate` datetime DEFAULT NULL
+  `creationDate` datetime DEFAULT NULL,
+  `active` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`ID`, `username`, `password`, `firstName`, `lastName`, `email`, `securityLevel`, `creationDate`) VALUES
-(1, 'jason', '5f4dcc3b5aa765d61d8327deb882cf99', 'test1', 'user1', 'test1@gmail.vom', 2, '2021-04-02 15:51:55'),
-(2, 'nick', '5f4dcc3b5aa765d61d8327deb882cf99', 'test2', 'user2', 'test2@gmail.com', 2, '2021-04-02 15:54:44'),
-(3, 'lily', '5f4dcc3b5aa765d61d8327deb882cf99', 'test3', 'user3', 'test3@gmail.com', 2, '2021-04-02 15:55:38'),
-(4, 'jasper', '5f4dcc3b5aa765d61d8327deb882cf99', 'test4', 'user4', 'test4@gmail.com', 2, '2021-04-02 15:56:04');
+INSERT INTO `users` (`ID`, `username`, `password`, `firstName`, `lastName`, `email`, `securityLevel`, `creationDate`, `active`) VALUES
+(1, 'jason', '5f4dcc3b5aa765d61d8327deb882cf99', 'test1', 'user1', 'test1@gmail.vom', 2, '2021-04-02 15:51:55', 1),
+(2, 'nick', '5f4dcc3b5aa765d61d8327deb882cf99', 'test2', 'user2', 'test2@gmail.com', 2, '2021-04-02 15:54:44', 1),
+(3, 'lily', '5f4dcc3b5aa765d61d8327deb882cf99', 'test3', 'user3', 'test3@gmail.com', 2, '2021-04-02 15:55:38', 1),
+(4, 'jasper', '5f4dcc3b5aa765d61d8327deb882cf99', 'test4', 'user4', 'test4@gmail.com', 2, '2021-04-02 15:56:04', 1);
 
 --
 -- Indexes for dumped tables

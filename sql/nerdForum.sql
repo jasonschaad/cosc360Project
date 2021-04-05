@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 05, 2021 at 08:24 PM
+-- Generation Time: Apr 05, 2021 at 09:18 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -111,7 +111,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`ID`, `username`, `password`, `firstName`, `lastName`, `email`, `securityLevel`, `creationDate`, `active`) VALUES
-(1, 'jason', '5f4dcc3b5aa765d61d8327deb882cf99', 'test1', 'user1', 'test1@gmail.vom', 2, '2021-04-02 15:51:55', 1),
+(1, 'jason', 'ae808c4e4eb3723da7032ae66328dba9', 'test1', 'user1', 'jschaad@gmail.com', 2, '2021-04-02 15:51:55', 1),
 (2, 'nick', '5f4dcc3b5aa765d61d8327deb882cf99', 'test2', 'user2', 'test2@gmail.com', 2, '2021-04-02 15:54:44', 1),
 (3, 'lily', '5f4dcc3b5aa765d61d8327deb882cf99', 'test3', 'user3', 'test3@gmail.com', 2, '2021-04-02 15:55:38', 1),
 (4, 'jasper', '5f4dcc3b5aa765d61d8327deb882cf99', 'test4', 'user4', 'test4@gmail.com', 2, '2021-04-02 15:56:04', 1);

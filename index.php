@@ -37,6 +37,9 @@ if($error != null) {
   $output = "<p>Unable to connect to database!</p>";
   exit($output);
 } 
+
+//adding aggregate count for # of replies
+
 //continue doing things if no error.
 $sql = "SELECT ID,categoryName from category";
 $result = mysqli_query($connection, $sql);

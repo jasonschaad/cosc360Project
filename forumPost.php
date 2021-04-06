@@ -27,6 +27,7 @@ $categoryID = $_GET["categoryID"];
 include 'dbhosts.php';
 
 $connection = mysqli_connect($host, $user, $password, $database);
+$connection2 = mysqli_connect($host, $user, $password, $database);
 
 $error = mysqli_connect_error();
 if($error != null) {
@@ -41,25 +42,42 @@ if ($preparedStatement === false) {
 mysqli_stmt_bind_param($preparedStatement, "s", $categoryID); 
 mysqli_stmt_execute($preparedStatement);
 mysqli_stmt_bind_result($preparedStatement, $postTitle, $postContent, $usernamecol, $postDate, $postID);
-//$results = mysqli_stmt_fetch($preparedStatement);
+ 
 echo"<table id = 'table-test'>";
 echo"<tr>";
 echo"<th>Title</th>";
 echo"<th>Author</th>";
 echo"<th>Post Date</th>";
+echo"<th>Replies</th>";
 echo"</tr>";
+
 while(mysqli_stmt_fetch($preparedStatement)){
+    $sql2 = "SELECT COUNT(ID) FROM replies WHERE replyPostId=$postID ORDER BY replyPostId";
+    $result = mysqli_query($connection2, $sql2);
+
+    while ($row = mysqli_fetch_assoc($result))
+    {
+    $tempcount = $row['COUNT(ID)'];
+    }
+
+
     echo"<tr>";
     echo"<td><a href = 'forumReply?postID=$postID'>$postTitle</a></td>";
     echo"<td >$usernamecol</td>";
     echo"<td>$postDate</td>";
+    echo"<td>$tempcount</td>";
+    
     echo"</tr>";
 
 }
+mysqli_stmt_close($preparedStatement);
+mysqli_free_result($result);
+
 
 echo"</table>";
-mysqli_stmt_close($preparedStatement);
+
 mysqli_close($connection);
+mysqli_close($connection2);
 
 if($categoryID == "1"){
     echo"<img src = 'images/thanos_simpson.jpeg'></img>";

@@ -1,0 +1,23 @@
+/* Color Palette */
+:root {
+  --c-primary: #b5e7a0;
+  --c-primary-lighter: #d9f3ce;
+  --c-primary-darker: #a6e28d;
+  --c-secondary: #3f4b3b;
+  --c-secondary-lighter: #566751;
+  --c-secondary-darker: #30392d;
+  --c-tertiary: #44633f;
+  --c-tertiary-lighter: #567c50;
+  --c-tertiary-darker: #334b30;
+  --c-accent: #c9c9ee;
+  --c-accent-lighter: #efeffa;
+  --c-accent-darker: #b1b1e7;
+  --c-extra: #baabbd;
+  --c-extra-lighter: #d0c6d2;
+  --c-extra-darker: #ab98ae;
+  --c-on-primary: white;
+  --c-on-secondary: white;
+  --c-on-tertiary: white;
+  --c-on-accent: black;
+  --c-on-extra: black;
+}

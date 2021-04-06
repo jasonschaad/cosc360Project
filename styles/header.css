@@ -1,0 +1,79 @@
+#header {
+  background-color: var(--c-primary);
+  color: var(--c-on-primary);
+  padding: 1em;
+}
+
+#header a.menuItem,
+#header a.main {
+  font-size: 1.25rem;
+  padding: 0 1em;
+  color: var(--c-on-secondary);
+}
+#header a.menuItem:first-child,
+#header a.main:first-child {
+  padding-left: 0;
+}
+#header a.menuItem:last-child {
+  padding-right: 0;
+}
+.main {
+}
+.welcomeMsg {
+}
+#hamburger-toggle {
+  cursor: pointer;
+  display: none; /* Hide this toggle button on desktop */
+  background-color: transparent;
+  border: 0;
+  transition: 0.3s;
+  height: 1.5rem;
+  width: 1.5rem;
+  font-size: 1.5rem;
+  padding: 0;
+  float: right;
+}
+#hamburger-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: 0.3s;
+}
+/* Hamburger menu icon built with help from https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_menu_icon_js */
+#hamburger-toggle .bar1,
+#hamburger-toggle .bar2,
+#hamburger-toggle .bar3 {
+  width: 0.9em;
+  height: 0.15em;
+  border-radius: 0.075em;
+  margin: 0.1375em 0.05em;
+  background-color: var(--c-on-primary);
+  transition: 0.4s ease-in-out;
+}
+@media only screen and (max-width: 960px) {
+  /* Mobile only styles (less than 960px) */
+  #hamburger-toggle {
+    display: inline-block;
+  }
+  #header.open #hamburger-toggle .bar1 {
+    -webkit-transform: rotate(-45deg) translate(-0.2em, 0.21em);
+    transform: rotate(-45deg) translate(-0.2em, 0.21em);
+  }
+  #header.open #hamburger-toggle .bar2 {
+    opacity: 0;
+  }
+  #header.open #hamburger-toggle .bar3 {
+    -webkit-transform: rotate(45deg) translate(-0.2em, -0.21em);
+    transform: rotate(45deg) translate(-0.2em, -0.21em);
+  }
+  #header.closed a.menuItem {
+    display: none !important;
+  }
+  #header.open a.menuItem {
+    display: block !important;
+  }
+  #header a.menuItem {
+    padding: 0.5em 0;
+  }
+  #header a.menuItem:last-child {
+    padding-bottom: 0;
+  }
+}

@@ -14,6 +14,7 @@ session_start();
         
     </style>
 <title>Nerd Forum</title>
+<?php include('head.php');?>
 </head>
 <body>
 <?php

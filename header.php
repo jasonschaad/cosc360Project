@@ -1,21 +1,33 @@
-<?php
+
+<div id="header" class="closed">
+	<button id="hamburger-toggle">
+		<div class="bar1"></div>
+		<div class="bar2"></div>
+		<div class="bar3"></div>
+	</button>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#hamburger-toggle").click(function() {
+				$("#header").toggleClass(["closed", "open"]);
+			})
+		});
+	</script>
+	<nav>
+		<a class="main" href="index.php">Home</a>
+<?php 
 
 if (!empty($_SESSION)) {
 	if ($_SESSION["securityLevel"] > 0) {
 		$tempName = $_SESSION["firstName"]." ".$_SESSION["lastName"];
-		echo "<a href='index.php'>Home</a>";
-		echo " | ";
-		echo "<a href='edituser.php'>Welcome $tempName</a>";
-		echo " | ";
-		echo "<a href='logout.php'>Logout</a>";
+		echo "<a class='welcomeMsg' href='edituser.php'>Welcome $tempName</a>";
+		echo "<a class='menuItem' href='logout.php'>Logout</a>";
 	}
 	else {
-		echo "<a href='login.php'>Login</a>";
+		echo "<a class='menuItem' href='login.php'>Login</a>";
 	}
 } else {
-	echo "<a href='index.php'>Home</a>";
-	echo " | ";
-	echo "<a href='login.php'>Login</a>";
+	echo "<a class='menuItem' href='login.php'>Login</a>";
 }
-
 ?>
+	</nav>
+</div>

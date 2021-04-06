@@ -6,10 +6,12 @@ session_start();
 <html>
 <head>
 <title>Nerd Forum</title>
+<?php include ('head.php'); ?>
 <script type="text/javascript" src="scripts/validate.js"></script>
 
 </head>
 <body>
+<?php include('header.php');?>
 
 all default passwords are "password" (no quotes)
 login is your first name all lowercase

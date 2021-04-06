@@ -13,7 +13,8 @@ session_start();
         h1 {text-align: center;}
         
     </style>
-<title>Nerd Forum</title>
+    <?php include('head.php'); ?>
+    <title>Nerd Forum</title>
 </head>
 <body>
 

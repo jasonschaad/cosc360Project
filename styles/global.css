@@ -1,0 +1,40 @@
+/* Screen sizes */
+:root {
+  --xs: 0;
+  --sm: 600px;
+  --md: 960px;
+  --lg: 1280px;
+  --xl: 1920px;
+}
+/* Fonts */
+* {
+  font-family: "Source Sans Pro", sans-serif;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Kiwi Maru", serif;
+}
+
+/* Main Stylings */
+body {
+  background-color: var(--c-secondary);
+  color: var(--c-on-secondary);
+  margin: 0;
+}
+
+/* Links */
+a {
+  color: var(--c-accent-darker);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+a:hover,
+a:visited {
+  color: var(--c-extra-darker);
+}

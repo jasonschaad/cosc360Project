@@ -5,6 +5,7 @@ session_start();
 <!DOCTYPE html>
 <head>
 <title>Nerd Forum</title>
+<?php include ('head.php'); ?>
 </head>
 <body>
 <?php

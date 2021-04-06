@@ -59,7 +59,7 @@ else {
  
   $MD5Password = md5($pass);
  
-  $sql = "SELECT COUNT(*),securityLevel, firstName, lastName FROM users WHERE username = ? AND password = ?";
+  $sql = "SELECT COUNT(*),securityLevel, firstName, lastName, ID FROM users WHERE username = ? AND password = ?";
   $preparedStatement = mysqli_prepare($connection, $sql);
   if ($preparedStatement === false) {
     die("prepare failed: " . htmlspecialchars(mysqli_error($connection)));
@@ -67,7 +67,7 @@ else {
   
   mysqli_stmt_bind_param($preparedStatement, "ss", $username, $MD5Password); 
   mysqli_stmt_execute($preparedStatement);
-  mysqli_stmt_bind_result($preparedStatement, $num_rows, $securityLevel, $firstName, $lastName);
+  mysqli_stmt_bind_result($preparedStatement, $num_rows, $securityLevel, $firstName, $lastName, $userID);
   mysqli_stmt_fetch($preparedStatement);
   
   // Close the statement
@@ -82,6 +82,7 @@ else {
    $_SESSION["securityLevel"] = $securityLevel;
    $_SESSION["firstName"] = $firstName;
    $_SESSION["lastName"] = $lastName;
+   $_SESSION["userID"] = $userID;
    
    header("Location: index.php");
   }

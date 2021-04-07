@@ -32,6 +32,7 @@ function showhide() {
 
 include('header.php');
 
+// OK if userID is empty
 $userID = $_GET['ID']; 
 
 $isProblem = 0 ;
@@ -94,6 +95,7 @@ else {
   echo "<legend>$tempValue</legend>\n";
   echo "<label for='username'>Username:</label>\n";
   echo "<input type='text' name='username' id='username' class='required' value='$username'>\n";
+  echo "<input type='hidden' id='userID' name='userID' value='$userID'>\n";
   echo "<br />\n";
   
   echo "<label for='firstName'>First Name:</label>\n";
@@ -115,27 +117,27 @@ else {
     
     echo "<div id='hiddenpasswordfield' style='display :none;'>\n";
     echo "<label for='Password'>New Password:</label>\n";
-    echo "<input type='text' name='Password' id='Password' value ='' class='required' />\n";
+    echo "<input type='text' name='password' id='password' />\n";
     echo "</div>\n";
     echo "<br />\n";
   }
   else {
     echo "<label for='Password'>Password:</label>\n";
-    echo "<input type='text' name='Password' id='Password' value = '' class='required' />\n";
+    echo "<input type='text' name='password' id='password' />\n";
     echo "<br />\n";
   }
   
   // photo
   echo "<label for='photo'>Photo:</label>\n";
 
-  $dir = "files/photo/";
+  $dir = "files";
   
   // fake query string to ensure photo is not cached after updating
   $nocache = rand(1,9999);
   
   if (file_exists("{$dir}/"."$userID.jpg")) {
     $isFileExists = 1;
-    echo "<img src='files/photo/$userID.jpg?$nocache' alt='photo' />";
+    echo "<img src='files/$userID.jpg?$nocache' alt='photo' width='96px' height = '125px' />";
   }
   else {
     $isFileExists = 0;

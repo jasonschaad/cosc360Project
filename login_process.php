@@ -35,7 +35,7 @@ if (empty($pass)) {
 
 if ($isEmpty) {
   $output = "<p>One of the required POST variables is empty.</p>";
-  $output .= "<p><a href='lab9-2.html'>Return to the login page</a></p>";
+  $output .= "<p><a href='login.php'>Return to the login page</a></p>";
   exit($output);
 }
 

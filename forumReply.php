@@ -11,24 +11,17 @@ session_start();
         #table-test td{border: 1px solid black;}
         #table-test{border: 1px solid black; margin-left: auto; margin-right: auto; width: 80%; text-align: center;}
         h1 {text-align: center;}
+        article, article h3 {border: 1px solid black;}
         
     </style>
     <?php include('head.php'); ?>
     <title>Nerd Forum</title>
 </head>
 <body>
-
 <?php
 
 include 'header.php';
 
-echo "<h1>Welcome to NerdForum</h1>";
-//creating table to display all post categories.
-echo"<table id = 'table-test'>";
-echo"<tr>";
-echo"<th>Categories</th>";
-echo"</tr>";
-//make connection to database
 include 'dbhosts.php';
 $connection = mysqli_connect($host, $user, $password, $database);
 
@@ -37,30 +30,29 @@ if($error != null) {
   $output = "<p>Unable to connect to database!</p>";
   exit($output);
 } 
+$postId = $_GET["postID"];
 
-
-
-//continue doing things if no error.
-$sql = "SELECT ID,categoryName from category";
+$sql = "SELECT title, DATE_FORMAT(postDate, '%M %e, %Y %l:%i %p') as formattedDate, postContent, users.username AS userName FROM posts JOIN users ON postUserId = users.ID WHERE posts.ID = $postId";
 $result = mysqli_query($connection, $sql);
-if (mysqli_num_rows($result) > 0) {
-    // output data of each row
-    while($row = mysqli_fetch_assoc($result)) {
-        echo"<tr>";
-        $tempCategory = $row["categoryName"];
-        $tempID= $row["ID"];
-        //echo link with categoryID to forumPost.php
-        echo"<td><a href='forumPost.php?categoryID=$tempID'</a>$tempCategory</td>";
-        echo"</tr>";
-    }
-}
-echo"</table>";
-//close connection.
+while ($row = mysqli_fetch_assoc($result))
+    {
+    $tempTitle = $row['title'];
+    $tempDate = $row['formattedDate'];
+    $tempContent = $row['postContent'];
+    $tempUsername = $row['userName'];
+    echo"<article>";
+    echo"<h3 style = 'text-align: center;'>$tempTitle</h3>";
+    echo"<p>Posted by: $tempUsername on $tempDate";
+    echo"<div style = 'text-align: center;'>";
+    echo "$tempContent";
+    echo"</div>";
+    echo"</article>";
 
-mysqli_close($connection);
+    break;
+
+    }
 
 ?>
-
 
 </body>
 </html>

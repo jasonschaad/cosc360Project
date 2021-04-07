@@ -17,18 +17,10 @@ session_start();
     <title>Nerd Forum</title>
 </head>
 <body>
-
 <?php
 
 include 'header.php';
 
-echo "<h1>Welcome to NerdForum</h1>";
-//creating table to display all post categories.
-echo"<table id = 'table-test'>";
-echo"<tr>";
-echo"<th>Categories</th>";
-echo"</tr>";
-//make connection to database
 include 'dbhosts.php';
 $connection = mysqli_connect($host, $user, $password, $database);
 
@@ -37,30 +29,23 @@ if($error != null) {
   $output = "<p>Unable to connect to database!</p>";
   exit($output);
 } 
+$postId = $_GET["postID"];
 
-
-
-//continue doing things if no error.
-$sql = "SELECT ID,categoryName from category";
+$sql = "SELECT postTitle, postDate, postContent, users.ID FROM posts JOIN users ON postUserId = users.ID WHERE postId = $postId";
 $result = mysqli_query($connection, $sql);
-if (mysqli_num_rows($result) > 0) {
-    // output data of each row
-    while($row = mysqli_fetch_assoc($result)) {
-        echo"<tr>";
-        $tempCategory = $row["categoryName"];
-        $tempID= $row["ID"];
-        //echo link with categoryID to forumPost.php
-        echo"<td><a href='forumPost.php?categoryID=$tempID'</a>$tempCategory</td>";
-        echo"</tr>";
+while ($row = mysqli_fetch_assoc($result))
+    {
+    $tempTitle = $row['postTitle'];
+    $tempDate = $row['postDate'];
+    $tempContent = $row['postContent'];
+    $tempUserID = $row['users.ID'];
+    echo"<article>";
+    echo"<h3 style = 'text-align: center;'>$tempTitle</h3>";
+    echo"<div>";
+    echo "$tempContent";
+
     }
-}
-echo"</table>";
-//close connection.
-
-mysqli_close($connection);
-
 ?>
-
 
 </body>
 </html>

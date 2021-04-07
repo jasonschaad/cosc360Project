@@ -62,7 +62,7 @@ while(mysqli_stmt_fetch($preparedStatement)){
 
 
     echo"<tr>";
-    echo"<td><a href = 'forumReply?postID=$postID'>$postTitle</a></td>";
+    echo"<td><a href = 'forumReply.php?postID=$postID'>$postTitle</a></td>";
     echo"<td >$usernamecol</td>";
     echo"<td>$postDate</td>";
     echo"<td>$tempcount</td>";

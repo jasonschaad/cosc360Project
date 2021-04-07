@@ -19,7 +19,7 @@
 if (!empty($_SESSION)) {
 	if ($_SESSION["securityLevel"] > 0) {
 		$tempName = $_SESSION["firstName"]." ".$_SESSION["lastName"];
-		$tempuserID = $_SESSION["userID"];
+		$tempuserID = $_SESSION["userID"]; 
 		echo "<a class='welcomeMsg' href='edituser.php?ID=$tempuserID'>Welcome $tempName</a>";
 		echo "<a class='menuItem' href='logout.php'>Logout</a>";
 	}

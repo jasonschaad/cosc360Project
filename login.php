@@ -34,7 +34,7 @@ login is your first name all lowercase
 </div>
 
 <div id="createNewAccount">
-  <a href="url">Create new account</a>
+  <a href="edituser.php">Create new account</a>
 </div>
 
 </body>

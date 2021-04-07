@@ -39,6 +39,9 @@ if (empty($firstName)) {
 if (empty($lastName)) {
   $isEmpty = 1;
 }
+if (empty($pass)) {
+  $isEmpty = 1;
+}
 
 if ($isEmpty) {
   $output = "<p>One of the required POST variables is empty.</p>";
@@ -53,6 +56,15 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
   exit($output);
 } 
 
+if ($userID == "") {
+  // we are creating a user
+  $type = "create";
+}
+else {
+  // we are updating a user
+  $type = "update";
+}
+
 // All good we can connect to database now
 include 'dbhosts.php';
 
@@ -66,42 +78,81 @@ if($error != null) {
 else {
   //good connection
   
-  ////////////////////////////////////////////////
-  // Update username, firstName, lastName, email
-  ////////////////////////////////////////////////
-
-  // Update the user except password
-  $sql = "UPDATE users SET username=?, firstName=?, lastName=?, email=? WHERE id=?";
-  $preparedStatement = mysqli_prepare($connection, $sql);
-  if ($preparedStatement === false) {
-    die("prepare failed: " . htmlspecialchars(mysqli_error($connection)));
-  }
-  mysqli_stmt_bind_param($preparedStatement, "ssssi", $username, $firstName, $lastName, $email, $userID);
-  mysqli_stmt_execute($preparedStatement);
- 
- // Close the statement
- mysqli_stmt_close($preparedStatement);
- 
- ////////////////////////////////
- // Update password if required
- ////////////////////////////////
- 
- if ($pass != '') {
-   $MD5Password = md5($pass);
-   $sql = "UPDATE users SET password=? WHERE id=?";
-   $preparedStatement = mysqli_prepare($connection, $sql);
-   if ($preparedStatement === false) {
-     die("prepare failed: " . htmlspecialchars(mysqli_error($connection)));
-   }
-   mysqli_stmt_bind_param($preparedStatement, "si", $MD5Password, $userID);
-   mysqli_stmt_execute($preparedStatement);
+  if ($type == "create") {
+    //////////////////////
+    // Create user logic
+    //////////////////////
+    
+    //////////////////////////////////////////////////////////////////////////////////
+    // Check to see if the user already exists in the database based on email address
+    //////////////////////////////////////////////////////////////////////////////////
+        
+    $sql = "SELECT COUNT(*) FROM users WHERE email = ? OR username = ?";
+    $preparedStatement = mysqli_prepare($connection, $sql);
+    if ($preparedStatement === false) {
+      die("prepare failed: " . htmlspecialchars(mysqli_error($connection)));
+    }
+    
+    mysqli_stmt_bind_param($preparedStatement, "ss", $email, $username); 
+    mysqli_stmt_execute($preparedStatement);
+    mysqli_stmt_bind_result($preparedStatement, $num_rows);
+    mysqli_stmt_fetch($preparedStatement);
+    
+    // Close the statement
+    mysqli_stmt_close($preparedStatement);
+      
+    if ($num_rows > 0) {
+      $output = "<p>User already exists with this username and/or email.</p>";
+      $output .= "<p><a href='lab9-1.html'>Return to user entry</a></p>";
+      mysqli_close($connection);
+      exit($output);
+    }
+    
+    ///////////////////////////////////////////
+    // Add user information into the database
+    ///////////////////////////////////////////
+    
+    // Hash the password with MD5
+    $MD5Password = md5($pass);
+    
+    $sql = "INSERT INTO users VALUES (?,?,?,?,?)";
+    $preparedStatement = mysqli_prepare($connection, $sql);
+    if ($preparedStatement === false) {
+      die("prepare failed: " . htmlspecialchars(mysqli_error($connection)));
+    }
+    mysqli_stmt_bind_param($preparedStatement, "sssss", $username, $firstName, $lastName, $email, $MD5Password);
+    mysqli_stmt_execute($preparedStatement);
   
-  // Close the statement
-  mysqli_stmt_close($preparedStatement);
- }
-
-  // Close the database
-  mysqli_close($connection);
+    // grab the insert ID of the previous record
+    $userID = mysqli_insert_id($connection);
+    
+    // Close the statement
+    mysqli_stmt_close($preparedStatement);
+  
+    // Close the database
+    mysqli_close($connection);
+    
+  }
+  else {
+    ////////////////////////////////////////////////
+    // Update username, firstName, lastName, email
+    ////////////////////////////////////////////////
+    // Update the user except password
+    $sql = "UPDATE users SET username=?, firstName=?, lastName=?, email=? WHERE id=?";
+    $preparedStatement = mysqli_prepare($connection, $sql);
+    if ($preparedStatement === false) {
+      die("prepare failed: " . htmlspecialchars(mysqli_error($connection)));
+    }
+    mysqli_stmt_bind_param($preparedStatement, "ssssi", $username, $firstName, $lastName, $email, $userID);
+    mysqli_stmt_execute($preparedStatement);
+   
+   // Close the statement
+   mysqli_stmt_close($preparedStatement);
+   
+    // Close the database
+    mysqli_close($connection);
+  }
+  
   
   ////////////////////////////////////
   // conditionally upload photo 
@@ -134,7 +185,7 @@ else {
     echo "<p>$errorMessage</p>";
     }
   
-  if ($userID == "") {
+  if ($type == "create") {
     echo "<p>Successfully created user.</p>\n"; 
   }
   else {

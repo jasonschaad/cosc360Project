@@ -1,6 +1,7 @@
 <?php
 // Start the session
 session_start();
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -11,16 +12,14 @@ session_start();
 
 <script type="text/javascript">
 
-function showhide() {
-  myField = document.getElementById("hiddenpasswordfield");
-  myState = myField.style.display;
-  
-  // swap display state
-  if (myState == 'none') {
-    $("#hiddenpasswordfield:hidden").show(500);
-  }
-  else {
-    $("#hiddenpasswordfield:visible").hide(500);
+function checkPasswordMatch(e) {
+  var password = document.getElementById("password");;
+  var passwordcheck = document.getElementById("password-check");
+  if (password.value != passwordcheck.value) {
+    alert("Passwords must be the same. Please try again.");
+    makeRed(password);
+    makeRed(passwordcheck);
+    e.preventDefault();
   }
 }
 
@@ -32,8 +31,13 @@ function showhide() {
 
 include('header.php');
 
-// OK if userID is empty
-$userID = $_GET['ID']; 
+// OK if userID is empty - create user
+if (empty($_GET)) {
+  $userID = "";
+} 
+else {
+  $userID = $_GET['ID']; 
+}
 
 $isProblem = 0 ;
 
@@ -110,21 +114,24 @@ else {
   echo "<input type='text' name='email' id='email' class='required' value='$email'>\n";
   echo "<br />\n";
   
-  if (!empty($userID)) {
+  if (empty($userID)) {
   
-    echo "<label for='changePassword'>Change Password:</label>\n";
-    echo "<img src='images/edit.png' alt='Change Password' onclick='showhide()'/>\n";
-    
-    echo "<div id='hiddenpasswordfield' style='display :none;'>\n";
-    echo "<label for='Password'>New Password:</label>\n";
-    echo "<input type='text' name='password' id='password' />\n";
-    echo "</div>\n";
-    echo "<br />\n";
-  }
-  else {
     echo "<label for='Password'>Password:</label>\n";
-    echo "<input type='text' name='password' id='password' />\n";
+    echo "<input type='password' name='password' id='password' />\n";
     echo "<br />\n";
+    
+    echo "<label for='Password'>Re-enter Password:</label>\n";
+    echo "<input type='password' name='password-check' id='password-check' />\n";
+    echo "<br />\n";
+    
+    // echo "<label for='changePassword'>Change Password:</label>\n";
+    // echo "<img src='images/edit.png' alt='Change Password' onclick='showhide()'/>\n";
+    // 
+    // echo "<div id='hiddenpasswordfield' style='display :none;'>\n";
+    // echo "<label for='Password'>New Password:</label>\n";
+    // echo "<input type='text' name='password' id='password' />\n";
+    // echo "</div>\n";
+    // echo "<br />\n";
   }
   
   // photo
@@ -149,6 +156,8 @@ else {
   echo "<input type='submit' value='$tempValue'>";
   echo "</fieldset>";
   echo "</form>";
+  
+  echo "<p><a href='changepassword.php'>Change password</a></p>\n";
 }
 ?>
 

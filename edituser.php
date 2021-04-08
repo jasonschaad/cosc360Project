@@ -117,11 +117,11 @@ else {
   if (empty($userID)) {
   
     echo "<label for='Password'>Password:</label>\n";
-    echo "<input type='password' name='password' id='password' />\n";
+    echo "<input type='password' name='password' id='password' class='required' />\n";
     echo "<br />\n";
     
     echo "<label for='Password'>Re-enter Password:</label>\n";
-    echo "<input type='password' name='password-check' id='password-check' />\n";
+    echo "<input type='password' name='password-check' id='password-check' class='required' />\n";
     echo "<br />\n";
     
     // echo "<label for='changePassword'>Change Password:</label>\n";
@@ -157,7 +157,9 @@ else {
   echo "</fieldset>";
   echo "</form>";
   
-  echo "<p><a href='changepassword.php'>Change password</a></p>\n";
+  if (!empty($userID)) {
+    echo "<p><a href='changepassword.php'>Change password</a></p>\n";
+  }
 }
 ?>
 

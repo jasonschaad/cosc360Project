@@ -17,8 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $firstName = addslashes($_POST['firstName']); 
   $lastName = addslashes($_POST['lastName']); 
   $email = addslashes($_POST['email']); 
-  $pass = addslashes($_POST['password']); 
   $userID = $_POST['userID'];
+  
 } 
 else {
   // error message if not a post (prevents data being injected with a GET)
@@ -39,15 +39,6 @@ if (empty($firstName)) {
 if (empty($lastName)) {
   $isEmpty = 1;
 }
-if (empty($pass)) {
-  $isEmpty = 1;
-}
-
-if ($isEmpty) {
-  $output = "<p>One of the required POST variables is empty.</p>";
-  $output .= "<p><a href='edituser.php'>Return to the edit user page</a></p>";
-  exit($output);
-}
 
 // check if valid email
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -59,10 +50,22 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 if ($userID == "") {
   // we are creating a user
   $type = "create";
+  // grab password
+  $pass = addslashes($_POST['password']); 
+  if (empty($pass)) {
+    $isEmpty = 1;
+  }
 }
 else {
   // we are updating a user
   $type = "update";
+}
+
+// Check for empty variables
+if ($isEmpty) {
+  $output = "<p>One of the required POST variables is empty.</p>";
+  $output .= "<p><a href='edituser.php'>Return to the edit user page</a></p>";
+  exit($output);
 }
 
 // All good we can connect to database now
@@ -100,7 +103,7 @@ else {
     
     // Close the statement
     mysqli_stmt_close($preparedStatement);
-      
+        
     if ($num_rows > 0) {
       $output = "<p>User already exists with this username and/or email.</p>";
       $output .= "<p><a href='lab9-1.html'>Return to user entry</a></p>";
@@ -115,23 +118,23 @@ else {
     // Hash the password with MD5
     $MD5Password = md5($pass);
     
-    $sql = "INSERT INTO users VALUES (?,?,?,?,?)";
+    $sql = "INSERT INTO users (username, firstName, lastName, email, password, securityLevel, creationDate, active) VALUES (?,?,?,?,?,1,NOW(), 1)";
+    
     $preparedStatement = mysqli_prepare($connection, $sql);
     if ($preparedStatement === false) {
-      die("prepare failed: " . htmlspecialchars(mysqli_error($connection)));
+       die("prepare failed: " . htmlspecialchars(mysqli_error($connection)));
     }
     mysqli_stmt_bind_param($preparedStatement, "sssss", $username, $firstName, $lastName, $email, $MD5Password);
     mysqli_stmt_execute($preparedStatement);
-  
+   
     // grab the insert ID of the previous record
     $userID = mysqli_insert_id($connection);
-    
+
     // Close the statement
     mysqli_stmt_close($preparedStatement);
   
     // Close the database
     mysqli_close($connection);
-    
   }
   else {
     ////////////////////////////////////////////////
@@ -153,12 +156,11 @@ else {
     mysqli_close($connection);
   }
   
-  
   ////////////////////////////////////
   // conditionally upload photo 
   ////////////////////////////////////
    
-  $errorMessage = "";
+  $errorNumber = 0;
   
   if ($_FILES["userfile"]["name"] != '') { 
     $dir = "files";
@@ -171,26 +173,12 @@ else {
       move_uploaded_file($_FILES["userfile"]["tmp_name"],"{$dir}/" . $userID . ".jpg");
     }
     else {
-      $errorMessage = "File is too large, max file size is $MaxFileSize.";
+      $errorNumber = 1;
     }  
   }
   
-  // Update firstName and lastName Session variables
-  $_SESSION["firstName"] = $firstName;
-  $_SESSION["lastName"] = $lastName;
+  header("Location: edituser_process2.php?type=$type&error=$errorNumber");
   
-  include('header.php');
-  
-  if (!empty($errorMessage)) {
-    echo "<p>$errorMessage</p>";
-    }
-  
-  if ($type == "create") {
-    echo "<p>Successfully created user.</p>\n"; 
-  }
-  else {
-    echo "<p>Successfully updated user.</p>\n";
-  }
 }
 
 ?>

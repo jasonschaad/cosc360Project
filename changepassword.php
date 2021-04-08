@@ -31,7 +31,7 @@ $(function() {
     // fetch from DOM
     var OldPassword = document.getElementById('oldpassword').value;
     $.ajax({
-      url: "usersettings_ajax.php",
+      url: "changepassword_ajax.php",
       async: true,
       data: {
         OldPassword: OldPassword

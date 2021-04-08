@@ -78,7 +78,22 @@ session_start();
     mysqli_stmt_close($preparedStatement);
 
     //##MODIFY CODE LATER - add if statement to check if users are logged in (Security level > 0).
-    
+
+    //ensure this code only shows up for users (securitylevel ==1) or admins (securitylevel ==2)
+    if($_SESSION["securityLevel"]== 1 || $_SESSION["securityLevel"] == 2){
+
+        echo "<form method='post' action='forumReply_process.php' id='replyForm' enctype='multipart/form-data'>\n";
+        echo "<fieldset>\n";
+        echo "<legend>Reply to this thread</legend>\n";
+        echo "<label for='replyContent'>Post Reply: </label>\n";
+        echo "<textarea id = 'replyContent' name = 'replyContent' placeholder = 'Write your reply here!' rows = '3' cols = '50'>\n";
+        echo "</textarea>";
+        echo "<input type='hidden' id='postID' name='postID' value='$postId'>\n";
+        echo"<input type = 'submit' value = 'Submit Reply'>";
+        echo "</fieldset>";
+        echo "</form>";
+
+    }
 
  
 

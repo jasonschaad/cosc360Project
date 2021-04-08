@@ -23,6 +23,34 @@ function checkPasswordMatch(e) {
   }
 }
 
+$(function() {
+  // fetch from DOM
+  var OldPassword = document.getElementById('oldpassword').value;
+
+  $("#oldpassword").blur(function(){    
+    // fetch from DOM
+    var OldPassword = document.getElementById('oldpassword').value;
+    $.ajax({
+      url: "usersettings_ajax.php",
+      async: true,
+      data: {
+        OldPassword: OldPassword
+      },
+      type: 'POST',
+      context: document.body
+      }).done(function(data) {
+        console.log(data);
+        if (data == 'Match') {
+          alert('Old password is correct. This message is just to show we are using ajax.');
+        }
+        else {
+          alert('Old password is incorrect.');
+        }
+        
+    });
+  });
+});
+
 </script>
 
 </head>

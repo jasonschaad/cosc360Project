@@ -25,14 +25,13 @@ if($error != null) {
 } 
 else {
 	$OldPassword = $_POST['OldPassword'];
-	$NewPassword = $_POST['NewPassword'];
 	
 	// $OldPassword = "password";
 	// $NewPassword = "rawr";
 
 	// exit conditions
-	if (($OldPassword == '') || ($NewPassword == '')) {
-		$output = "<p>User already exists with this username and/or email.</p>";
+	if ($OldPassword == '') {
+		$output = "<p>Old password must not be blank.</p>";
 		$output .= "<p><a href='changepassword.php'>Return to change password</a></p>";
 		mysqli_close($connection);
 		exit($output);

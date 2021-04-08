@@ -142,7 +142,7 @@ else {
     echo "<img src='images/anonymous.png?$nocache' alt='photo'  />\n ";
   }
   echo "&nbsp;<input type='file' name='userfile' id='userfile' value='edit photo' /> ";
-  
+  echo "<span class='fieldnote'>must be a jpg</span>";
   echo "<br /><br />";
   echo "<input type='submit' value='$tempValue'>";
   echo "</fieldset>";

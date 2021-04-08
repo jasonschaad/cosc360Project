@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 else {
   // error message if not a post (prevents data being injected with a GET)
   $output = "<p>You may only access this page using the form provided.</p>";
-  $output .= "<p><a href='edituser.php'>Return to edit user page</a></p>";
+  $output .= "<p><a href='index.php'>Return to the home page</a></p>";
   exit($output);
 }
 
@@ -43,7 +43,7 @@ if (empty($lastName)) {
 // check if valid email
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
   $output = "<p>email is not valid.</p>";
-  $output .= "<p><a href='edituser.php'>Return to the edit user page</a></p>";
+  $output .= "<p><a href='index.php'>Return to the home page</a></p>";
   exit($output);
 } 
 
@@ -64,7 +64,7 @@ else {
 // Check for empty variables
 if ($isEmpty) {
   $output = "<p>One of the required POST variables is empty.</p>";
-  $output .= "<p><a href='edituser.php'>Return to the edit user page</a></p>";
+  $output .= "<p><a href='home.php'>Return to the home page</a></p>";
   exit($output);
 }
 
@@ -106,7 +106,7 @@ else {
         
     if ($num_rows > 0) {
       $output = "<p>User already exists with this username and/or email.</p>";
-      $output .= "<p><a href='edituser.php'>Return to edit user</a></p>";
+      $output .= "<p><a href='home.php'>Return to the home page</a></p>";
       mysqli_close($connection);
       exit($output);
     }
@@ -163,6 +163,14 @@ else {
   $errorNumber = 0;
   
   if ($_FILES["userfile"]["name"] != '') { 
+    
+    $pieces = explode(".", $_FILES["userfile"]["name"]);
+    if (($pieces[1] != "jpg") || ($pieces[1] != "jpeg")) {
+      $output = "<p>The photo must be in a jpeg format.</p>";
+      $output .= "<p><a href='index.php'>Return to home</a></p>";
+      exit($output);
+    }
+    
     $dir = "files";
      
     // Set Max File Size 1MB

@@ -79,8 +79,22 @@ echo"</table>";
 mysqli_close($connection);
 mysqli_close($connection2);
 
-if($categoryID == "1"){
-    echo"<img src = 'images/thanos_simpson.jpeg'></img>";
+if($_SESSION["securityLevel"]== 1 || $_SESSION["securityLevel"] == 2){
+
+    echo "<form method='post' action='forumPost_process.php' id='postForm' enctype='multipart/form-data'>\n";
+    echo "<fieldset>\n";
+    echo "<legend>Create a new Post</legend>\n";
+    echo "<label for='newpostTitle'>Post Title: </label>\n";
+    echo "<textarea id = 'newpostTitle' name = 'newpostTitle' placeholder = 'Write your title here' rows = '1' cols = '50'>\n";
+    echo "</textarea>";
+    echo "<label for='newpostContent'>Post Content: </label>\n";
+    echo "<textarea id = 'newpostContent' name = 'newpostContent' placeholder = 'Write your post here' rows = '3' cols = '50'>\n";
+    echo "</textarea>";
+    echo "<input type='hidden' id='categoryID' name='categoryID' value='$categoryID'>\n";
+    echo"<input type = 'submit' value = 'Create Post'>";
+    echo "</fieldset>";
+    echo "</form>";
+
 }
 
 ?>

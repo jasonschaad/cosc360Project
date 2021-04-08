@@ -24,8 +24,10 @@ exit($output);
 } 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // collect value of input fields
-    $content = $_POST["replyContent"];
-    $postId = $_POST["postID"];
+    $content = $_POST["newpostContent"];
+    $title = $_POST["newpostTitle"];
+    $categoryID = $_POST["categoryID"];
+    $userID = $_SESSION["userID"];
 } 
   else {
     // error message if not a post (prevents data being injected with a GET)
@@ -36,25 +38,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 //grab userID from session
 $userId = $_SESSION["userID"];
 //create insert statement, use current timestamp for replydate
-$sql = "INSERT INTO replies(content, replyDate, replyUserId, replyPostId) VALUES(?,CURRENT_TIMESTAMP(),?,?)";
+$sql = "INSERT INTO posts(title, postContent, postDate, postUserId, postCategoryId) VALUES(?,?,CURRENT_TIMESTAMP(),?,?)";
 $preparedStatement = mysqli_prepare($connection, $sql);
     if ($preparedStatement === false) {
         die("prepare failed: " . htmlspecialchars(mysqli_error($connection)));
     }
 
-mysqli_stmt_bind_param($preparedStatement, "sss", $content, $userId, $postId); 
+mysqli_stmt_bind_param($preparedStatement, "ssss", $title, $content, $userID, $categoryID); 
+echo"$content";
+echo"$title";
+echo"$categoryID";
+echo"$userID";
+
 
 if(mysqli_stmt_execute($preparedStatement)== true){
     //echo"successfully posted reply!"; used for testing, does not display due to header() function called few lines later
     mysqli_stmt_close($preparedStatement);
     mysqli_close($connection);
-    header("Location: forumReply.php?postID=$postId");
+    header("Location: forumPost.php?categoryID=$categoryID");
 }
 else{
     echo"prepared statement failed to execute.";
     mysqli_stmt_close($preparedStatement);
     mysqli_close($connection);
-    echo"<a href = 'forumReply.php?postID=$postId'>Return to thread</a>";
+    echo"<a href = 'forumPost.php?categoryID=$categoryID'>Return to posts</a>";
+    
 
 }
 ?>

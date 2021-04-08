@@ -14,6 +14,14 @@ session_start();
         article{border: 1px solid black;}
         
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#hide").click(function(){
+                $("#replies_collapse").fadeToggle();
+            });
+        });
+    </script>
     <?php include('head.php'); ?>
     <title>Nerd Forum</title>
 </head>
@@ -37,6 +45,7 @@ session_start();
     if ($preparedStatement === false) {
         die("prepare failed: " . htmlspecialchars(mysqli_error($connection)));
     }
+    echo"<button id = 'hide'>Collapse Replies</button>";
     mysqli_stmt_bind_param($preparedStatement, "s", $postId); 
     mysqli_stmt_execute($preparedStatement);
     mysqli_stmt_bind_result($preparedStatement, $postTitle, $postDate, $postContent, $author);
@@ -53,6 +62,7 @@ session_start();
         break;
 
     }
+    
     echo"</div>";
     mysqli_stmt_close($preparedStatement);
 
@@ -64,6 +74,7 @@ session_start();
     mysqli_stmt_bind_param($preparedStatement, "s", $postId); 
     mysqli_stmt_execute($preparedStatement);
     mysqli_stmt_bind_result($preparedStatement, $replyContent, $replyDate, $author);
+    echo"<div id = 'replies_collapse'>";
     while (mysqli_stmt_fetch($preparedStatement)){
         echo"<div class = 'placeholder-post-container'>";
         echo"<article class = 'placeholder-user-info'>";
@@ -76,7 +87,7 @@ session_start();
         echo"</div>";
     }
     mysqli_stmt_close($preparedStatement);
-
+    echo"</div>";
     //##MODIFY CODE LATER - add if statement to check if users are logged in (Security level > 0).
 
     //ensure this code only shows up for users (securitylevel ==1) or admins (securitylevel ==2)
@@ -97,7 +108,7 @@ session_start();
 
  
 
-
+    
     mysqli_close($connection);
 
 ?>

@@ -106,7 +106,7 @@ else {
         
     if ($num_rows > 0) {
       $output = "<p>User already exists with this username and/or email.</p>";
-      $output .= "<p><a href='lab9-1.html'>Return to user entry</a></p>";
+      $output .= "<p><a href='edituser.php'>Return to edit user</a></p>";
       mysqli_close($connection);
       exit($output);
     }
@@ -177,7 +177,7 @@ else {
     }  
   }
   
-  header("Location: edituser_process2.php?type=$type&error=$errorNumber");
+  header("Location: edituser_process2.php?type=$type&error=$errorNumber&fname=$firstName&lname=$lastName");
   
 }
 

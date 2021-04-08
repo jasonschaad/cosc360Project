@@ -75,7 +75,7 @@ else {
   
   mysqli_stmt_bind_param($preparedStatement, "i", $userID); 
   mysqli_stmt_execute($preparedStatement);
-  mysqli_stmt_bind_result($preparedStatement, $username, $lastName, $firstName, $email);
+  mysqli_stmt_bind_result($preparedStatement, $username, $firstName, $lastName, $email);
   mysqli_stmt_fetch($preparedStatement);
   
   // Close the statement
@@ -123,15 +123,6 @@ else {
     echo "<label for='Password'>Re-enter Password:</label>\n";
     echo "<input type='password' name='password-check' id='password-check' class='required' />\n";
     echo "<br />\n";
-    
-    // echo "<label for='changePassword'>Change Password:</label>\n";
-    // echo "<img src='images/edit.png' alt='Change Password' onclick='showhide()'/>\n";
-    // 
-    // echo "<div id='hiddenpasswordfield' style='display :none;'>\n";
-    // echo "<label for='Password'>New Password:</label>\n";
-    // echo "<input type='text' name='password' id='password' />\n";
-    // echo "</div>\n";
-    // echo "<br />\n";
   }
   
   // photo

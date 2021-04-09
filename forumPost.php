@@ -12,7 +12,15 @@ session_start();
         #table-test{border: 1px solid black; margin-left: auto; margin-right: auto; width: 80%; text-align: center;}
         h1 {text-align: center;}
         
-    </style>
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#hide").click(function(){
+            $("#posts_collapse").fadeToggle();
+        });
+    });
+</script>
 <title>Nerd Forum</title>
 <?php include('head.php');?>
 </head>
@@ -34,7 +42,7 @@ if($error != null) {
   $output = "<p>Unable to connect to database!</p>";
   exit($output);
 } 
-$sql = "SELECT title, CAST(postContent AS VARCHAR(100)), users.username, postDate, posts.ID FROM posts JOIN users ON postUserId = users.ID WHERE postCategoryId = ?";
+$sql = "SELECT title, CAST(postContent AS VARCHAR(100)), users.username, DATE_FORMAT(postDate, '%M %e, %Y %l:%i %p'), posts.ID FROM posts JOIN users ON postUserId = users.ID WHERE postCategoryId = ?";
 $preparedStatement = mysqli_prepare($connection, $sql);
 if ($preparedStatement === false) {
     die("prepare failed: " . htmlspecialchars(mysqli_error($connection)));
@@ -42,7 +50,8 @@ if ($preparedStatement === false) {
 mysqli_stmt_bind_param($preparedStatement, "s", $categoryID); 
 mysqli_stmt_execute($preparedStatement);
 mysqli_stmt_bind_result($preparedStatement, $postTitle, $postContent, $usernamecol, $postDate, $postID);
- 
+echo"<button id = 'hide'>Collapse Posts</button>";
+echo"<div id = 'posts_collapse'>";
 echo"<table id = 'table-test'>";
 echo"<tr>";
 echo"<th>Title</th>";
@@ -50,6 +59,7 @@ echo"<th>Author</th>";
 echo"<th>Post Date</th>";
 echo"<th>Replies</th>";
 echo"</tr>";
+
 
 while(mysqli_stmt_fetch($preparedStatement)){
     $sql2 = "SELECT COUNT(ID) FROM replies WHERE replyPostId=$postID ORDER BY replyPostId";
@@ -75,6 +85,7 @@ mysqli_free_result($result);
 
 
 echo"</table>";
+echo"</div>";
 
 mysqli_close($connection);
 mysqli_close($connection2);

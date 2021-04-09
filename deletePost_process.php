@@ -44,6 +44,7 @@ else{
     mysqli_stmt_bind_param($preparedStatement, "s", $postID); 
     mysqli_stmt_execute($preparedStatement);
     mysqli_stmt_close($preparedStatement);
+    mysqli_close($connection);
     header("Location: forumPost.php?categoryID=$categoryID");
 
     }

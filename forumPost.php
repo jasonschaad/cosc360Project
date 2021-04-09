@@ -80,7 +80,7 @@ while(mysqli_stmt_fetch($preparedStatement)){
     echo"<td>$postDate</td>";
     echo"<td>$tempcount</td>";
     if($_SESSION["securityLevel"]== 2){
-        echo"<td><button>Remove</button></td>";
+        echo"<td><button><a href = 'deletePost_process.php?postID=$postID&categoryID=$categoryID'>Remove</a></button></td>";
     }
     
     echo"</tr>";

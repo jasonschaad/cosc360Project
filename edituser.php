@@ -67,7 +67,7 @@ if($error != null) {
 } 
 else {
   //good connection, so do your thing
-  $sql = "SELECT username, firstName, lastName, email FROM users WHERE ID = ?";
+  $sql = "SELECT username, firstName, lastName, email, active FROM users WHERE ID = ?";
   $preparedStatement = mysqli_prepare($connection, $sql);
   if ($preparedStatement === false) {
     die("prepare failed: " . htmlspecialchars(mysqli_error($connection)));
@@ -75,7 +75,7 @@ else {
   
   mysqli_stmt_bind_param($preparedStatement, "i", $userID); 
   mysqli_stmt_execute($preparedStatement);
-  mysqli_stmt_bind_result($preparedStatement, $username, $firstName, $lastName, $email);
+  mysqli_stmt_bind_result($preparedStatement, $username, $firstName, $lastName, $email, $active);
   mysqli_stmt_fetch($preparedStatement);
   
   // Close the statement
@@ -116,12 +116,12 @@ else {
   
   if (empty($userID)) {
   
-    echo "<label for='Password'>Password:</label>\n";
+    echo "<label for='password'>Password:</label>\n";
     echo "<input type='password' name='password' id='password' class='required' />\n";
     echo "<br />\n";
     
-    echo "<label for='Password'>Re-enter Password:</label>\n";
-    echo "<input type='password' name='password-check' id='password-check' class='required' />\n";
+    echo "<label for='password-check'>Re-enter Password:</label>\n";
+    echo "<input type='password-check' name='password-check' id='password-check' class='required' />\n";
     echo "<br />\n";
   }
   
@@ -143,7 +143,26 @@ else {
   }
   echo "&nbsp;<input type='file' name='userfile' id='userfile' value='edit photo' /> ";
   echo "<span class='fieldnote'>must be a jpg</span>";
-  echo "<br /><br />";
+  
+  echo "<br />\n";
+  
+  if ($_SESSION['securityLevel'] == 2) {
+    
+    echo "<label for='active'>Active:</label>\n";
+    echo "<select name='active' id='active'>\n";
+    if ($active) {
+      echo "<option selected value=1>Yes</option>\n";
+      echo "<option value=0>No</option>\n";
+    } 
+    else {
+      echo "<option value=1>Yes</option>\n";
+      echo "<option selected value=0>No</option>\n";
+    }
+    echo "</select>\n";
+    echo "<br />\n";
+  }
+  
+  echo "<br />\n";
   echo "<input type='submit' value='$tempValue'>";
   echo "</fieldset>";
   echo "</form>";

@@ -1,44 +1,6 @@
 <?php
-// Start the session
-session_start();
-?>
-<!DOCTYPE html>
 
-<html>
-<head>
-    <style>
-        /* added temporary styles for visualization :) */
-        #table-test td{border: 1px solid black;}
-        #table-test{border: 1px solid black; margin-left: auto; margin-right: auto; width: 80%; text-align: center;}
-        h1, h2{text-align: center;}
-        
-    </style>
-    <?php include('head.php'); ?>
-    <title>Nerd Forum</title>
-</head>
-<body>
-
-<?php
-
-include 'header.php';
-
-echo "<h1>Welcome to NerdForum</h1>";
-//creating table to display all post categories.
-echo"<table id = 'table-test'>";
-echo"<tr>";
-echo"<th>Categories</th>";
-echo"</tr>";
-//make connection to database
-include 'dbhosts.php';
-$connection = mysqli_connect($host, $user, $password, $database);
-$connection2 = mysqli_connect($host, $user, $password, $database);
-
-$error = mysqli_connect_error();
-if($error != null) {
-  $output = "<p>Unable to connect to database!</p>";
-  exit($output);
-} 
-
+<<<<<<< HEAD
 
 
 //continue doing things if no error.
@@ -100,9 +62,8 @@ mysqli_free_result($result2);
 //close connection.
 mysqli_close($connection);
 mysqli_close($connection2);
+=======
+echo "rawr";
+>>>>>>> 9899e2a1392a29ef966f8703c6d1bff03c5c3a32
 
 ?>
-
-
-</body>
-</html>

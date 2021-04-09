@@ -183,7 +183,7 @@ else {
   if ($_FILES["userfile"]["name"] != '') { 
     
     $pieces = explode(".", $_FILES["userfile"]["name"]);
-    if (($pieces[1] != "jpg") || ($pieces[1] != "jpeg")) {
+    if (($pieces[1] != "jpg") && ($pieces[1] != "jpeg")) {
       $output = "<p>The photo must be in a jpeg format.</p>";
       $output .= "<p><a href='index.php'>Return to home</a></p>";
       exit($output);

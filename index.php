@@ -93,6 +93,8 @@ if (mysqli_num_rows($result) > 0) {
         
     }
     echo"</table>";
+}else{
+    echo"<h2>no hot posts to show right now!</h2>";
 }
 
 mysqli_free_result($result);

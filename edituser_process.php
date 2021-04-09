@@ -18,7 +18,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $lastName = addslashes($_POST['lastName']); 
   $email = addslashes($_POST['email']); 
   $userID = $_POST['userID'];
-  
+  if ($_SESSION['securityLevel'] == 2) {  
+    $active = $_POST['active'];
+    if (($active != 0) && ($active != 1)) {
+      $output = "<p>You can only access this page from the user creation form.</p>";
+      $output .= "<p><a href='index.php'>Return home and try again</a></p>";
+      exit($output);
+    }
+  }
 } 
 else {
   // error message if not a post (prevents data being injected with a GET)
@@ -141,16 +148,27 @@ else {
     // Update username, firstName, lastName, email
     ////////////////////////////////////////////////
     // Update the user except password
-    $sql = "UPDATE users SET username=?, firstName=?, lastName=?, email=? WHERE id=?";
+    if ($_SESSION['securityLevel'] == 2) { 
+      $sql = "UPDATE users SET username=?, firstName=?, lastName=?, email=?, active=? WHERE id=?";
+    }
+    else {
+      $sql = "UPDATE users SET username=?, firstName=?, lastName=?, email=? WHERE id=?";
+    }
     $preparedStatement = mysqli_prepare($connection, $sql);
     if ($preparedStatement === false) {
       die("prepare failed: " . htmlspecialchars(mysqli_error($connection)));
     }
-    mysqli_stmt_bind_param($preparedStatement, "ssssi", $username, $firstName, $lastName, $email, $userID);
+    if ($_SESSION['securityLevel'] == 2) { 
+     mysqli_stmt_bind_param($preparedStatement, "ssssii", $username, $firstName, $lastName, $email, $active, $userID, );
+    }
+    else {
+      mysqli_stmt_bind_param($preparedStatement, "ssssi", $username, $firstName, $lastName, $email, $userID);
+    }
+    
     mysqli_stmt_execute($preparedStatement);
    
-   // Close the statement
-   mysqli_stmt_close($preparedStatement);
+    // Close the statement
+    mysqli_stmt_close($preparedStatement);
    
     // Close the database
     mysqli_close($connection);

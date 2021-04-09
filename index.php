@@ -38,8 +38,6 @@ if($error != null) {
   exit($output);
 } 
 
-
-
 //continue doing things if no error.
 $sql = "SELECT ID,categoryName from category";
 $result = mysqli_query($connection, $sql);

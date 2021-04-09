@@ -59,7 +59,7 @@ else {
  
   $MD5Password = md5($pass);
  
-  $sql = "SELECT COUNT(*),securityLevel, firstName, lastName, ID FROM users WHERE username = ? AND password = ?";
+  $sql = "SELECT COUNT(*),securityLevel, firstName, lastName, ID, active FROM users WHERE username = ? AND password = ?";
   $preparedStatement = mysqli_prepare($connection, $sql);
   if ($preparedStatement === false) {
     die("prepare failed: " . htmlspecialchars(mysqli_error($connection)));
@@ -67,7 +67,7 @@ else {
   
   mysqli_stmt_bind_param($preparedStatement, "ss", $username, $MD5Password); 
   mysqli_stmt_execute($preparedStatement);
-  mysqli_stmt_bind_result($preparedStatement, $num_rows, $securityLevel, $firstName, $lastName, $userID);
+  mysqli_stmt_bind_result($preparedStatement, $num_rows, $securityLevel, $firstName, $lastName, $userID, $active);
   mysqli_stmt_fetch($preparedStatement);
   
   // Close the statement
@@ -75,9 +75,18 @@ else {
    
   // Close the database
   mysqli_close($connection);
+  
+  
    
   if ($num_rows == 1) {
+   
+   // check for active / inactive
+   if (!$active) {
+     $output = "<p>User is inactive.</p>";
+     exit($output);  
+   }
    echo "<p>User has a valid account.</p>";
+   
    // Set session variables
    $_SESSION["securityLevel"] = $securityLevel;
    $_SESSION["firstName"] = $firstName;

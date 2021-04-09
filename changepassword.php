@@ -46,7 +46,6 @@ $(function() {
         else {
           alert('Old password is incorrect.');
         }
-        
     });
   });
 });

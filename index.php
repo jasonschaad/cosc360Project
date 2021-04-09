@@ -67,7 +67,7 @@ if (mysqli_num_rows($result) > 0) {
     echo"<th>Title</th>";
     echo"<th>Author</th>";
     echo"<th>Post Date</th>";
-    echo"<th>Replies</th>";
+    echo"<th>Replies in Past Day</th>";
     
     echo"</tr>";
     while($row = mysqli_fetch_assoc($result)) {

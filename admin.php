@@ -24,7 +24,7 @@ else {
 
 include('header.php');
 
-echo "<form id='main' method='get' action='admin.php' class='validate'>";
+echo "<form id='main' method='get' action='admin.php'>";
 
 /////////////////////////////////////////////
 // begin searchbar (not much of a searchbar)

@@ -16,7 +16,8 @@ session_start();
 
 include('header.php');
 
-echo "<p>A good place for Search stuff</p>";
+echo "<p><a href='searchUser.php'>Search by User</a></p>";
+
 ?>
 
 </body>

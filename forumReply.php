@@ -39,8 +39,12 @@ session_start();
     exit($output);
     } 
     $postId = $_GET["postID"];
+    $sessionuserID = $_SESSION["userID"];
+    $nocache = rand(1,9999);
+    $dir = "files";
+    
 
-    $sql = "SELECT title, DATE_FORMAT(postDate, '%M %e, %Y %l:%i %p') as formattedDate, postContent, users.username AS userName FROM posts JOIN users ON postUserId = users.ID WHERE posts.ID = ?";
+    $sql = "SELECT title, DATE_FORMAT(postDate, '%M %e, %Y %l:%i %p') as formattedDate, postContent, users.username AS userName, users.ID FROM posts JOIN users ON postUserId = users.ID WHERE posts.ID = ?";
     $preparedStatement = mysqli_prepare($connection, $sql);
     if ($preparedStatement === false) {
         die("prepare failed: " . htmlspecialchars(mysqli_error($connection)));
@@ -48,11 +52,19 @@ session_start();
     echo"<button id = 'hide'>Collapse Replies</button>";
     mysqli_stmt_bind_param($preparedStatement, "s", $postId); 
     mysqli_stmt_execute($preparedStatement);
-    mysqli_stmt_bind_result($preparedStatement, $postTitle, $postDate, $postContent, $author);
+    mysqli_stmt_bind_result($preparedStatement, $postTitle, $postDate, $postContent, $author, $postUserId);
     echo"<div class = 'placeholder-post-container'>";
     while (mysqli_stmt_fetch($preparedStatement)){
         echo"<article class = 'placeholder-user-info'>";
-        echo"<i>Posted by: $author on $postDate</i>";
+        echo"<i>Posted by: $author on $postDate</i> </br>";
+        if (file_exists("{$dir}/"."$postUserId.jpg")) {
+            
+            echo "<img src='files/$postUserId.jpg?$nocache' alt='photo' width='96px' height = '125px' />";
+          }
+          else {
+            
+            echo "<img src='images/anonymous.png?$nocache' alt='photo'  />\n ";
+          }
         //echo"<figure><img src = '$postID.jpg'></img></figure>";
         echo"</article>";
         echo"<article class = 'placeholder-main-content'>";
@@ -66,19 +78,28 @@ session_start();
     echo"</div>";
     mysqli_stmt_close($preparedStatement);
 
-    $sql = "SELECT content, DATE_FORMAT(replyDate, '%M %e, %Y %l:%i %p'), users.username AS userName, replies.ID, replyPostId FROM replies JOIN users ON replyUserId = users.ID WHERE replyPostid = ?";
+    $sql = "SELECT content, DATE_FORMAT(replyDate, '%M %e, %Y %l:%i %p'), users.username AS userName, replies.ID, replyPostId, users.ID FROM replies JOIN users ON replyUserId = users.ID WHERE replyPostid = ?";
     $preparedStatement = mysqli_prepare($connection, $sql);
     if ($preparedStatement === false) {
         die("prepare failed: " . htmlspecialchars(mysqli_error($connection)));
     }
     mysqli_stmt_bind_param($preparedStatement, "s", $postId); 
     mysqli_stmt_execute($preparedStatement);
-    mysqli_stmt_bind_result($preparedStatement, $replyContent, $replyDate, $author, $replyID, $replyPostID);
+    mysqli_stmt_bind_result($preparedStatement, $replyContent, $replyDate, $author, $replyID, $replyPostID,$usersID);
     echo"<div id = 'replies_collapse'>";
+   
     while (mysqli_stmt_fetch($preparedStatement)){
         echo"<div class = 'placeholder-post-container'>";
         echo"<article class = 'placeholder-user-info'>";
-        echo"<i>Posted by: $author on $replyDate</i>";
+        echo"<i>Posted by: $author on $replyDate</i></br>";
+        if (file_exists("{$dir}/"."$usersID.jpg")) {
+            
+            echo "<img src='files/$usersID.jpg?$nocache' alt='photo' width='96px' height = '125px' />";
+          }
+          else {
+            
+            echo "<img src='images/anonymous.png?$nocache' alt='photo'  />\n ";
+          }
         //echo"<figure><img src = '$postID.jpg'></img></figure>";
         echo"</article>";
         echo"<article class = 'placeholder-main-content'>";

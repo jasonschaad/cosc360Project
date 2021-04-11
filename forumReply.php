@@ -66,14 +66,14 @@ session_start();
     echo"</div>";
     mysqli_stmt_close($preparedStatement);
 
-    $sql = "SELECT content, DATE_FORMAT(replyDate, '%M %e, %Y %l:%i %p'), users.username AS userName FROM replies JOIN users ON replyUserId = users.ID WHERE replyPostid = ?";
+    $sql = "SELECT content, DATE_FORMAT(replyDate, '%M %e, %Y %l:%i %p'), users.username AS userName, replies.ID, replyPostId FROM replies JOIN users ON replyUserId = users.ID WHERE replyPostid = ?";
     $preparedStatement = mysqli_prepare($connection, $sql);
     if ($preparedStatement === false) {
         die("prepare failed: " . htmlspecialchars(mysqli_error($connection)));
     }
     mysqli_stmt_bind_param($preparedStatement, "s", $postId); 
     mysqli_stmt_execute($preparedStatement);
-    mysqli_stmt_bind_result($preparedStatement, $replyContent, $replyDate, $author);
+    mysqli_stmt_bind_result($preparedStatement, $replyContent, $replyDate, $author, $replyID, $replyPostID);
     echo"<div id = 'replies_collapse'>";
     while (mysqli_stmt_fetch($preparedStatement)){
         echo"<div class = 'placeholder-post-container'>";
@@ -84,6 +84,9 @@ session_start();
         echo"<article class = 'placeholder-main-content'>";
         echo "$replyContent";
         echo"</article>";
+        if($_SESSION["securityLevel"]== 2){
+            echo"<td><button><a href = 'deleteReply_process.php?&replyID=$replyID&postID=$replyPostID'>Remove Reply</a></button></td>";
+        }
         echo"</div>";
     }
     mysqli_stmt_close($preparedStatement);

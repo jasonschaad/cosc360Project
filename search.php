@@ -17,6 +17,7 @@ session_start();
 include('header.php');
 
 echo "<p><a href='searchUser.php'>Search by User</a></p>";
+echo "<p><a href='searchForum.php'>Search Forum</a></p>";
 
 ?>
 

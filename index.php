@@ -4,7 +4,7 @@ session_start();
 ?>
 <!DOCTYPE html>
 
-<html>
+<html lang="en-US">
 <head>
     <style>
         /* added temporary styles for visualization :) */
@@ -31,7 +31,6 @@ echo"</tr>";
 //make connection to database
 include 'dbhosts.php';
 $connection = mysqli_connect($host, $user, $password, $database);
-$connection2 = mysqli_connect($host, $user, $password, $database);
 
 $error = mysqli_connect_error();
 if($error != null) {
@@ -75,7 +74,7 @@ if (mysqli_num_rows($result) > 0) {
         $tempNumReply = $row["numReply"];
         $tempPostID= $row["replyPostId"];
         $sql2 = "SELECT categoryName, category.ID, username, title, DATE_FORMAT(postDate, '%M %e, %Y %l:%i %p') AS postDate FROM category JOIN posts ON category.ID = posts.postCategoryId JOIN users ON users.ID = posts.postUserId WHERE posts.ID =$tempPostID";
-        $result2 = mysqli_query($connection2, $sql2);
+        $result2 = mysqli_query($connection, $sql2);
         
         while($row2 = mysqli_fetch_assoc($result2)){
         $tempCategoryName = $row2["categoryName"];
@@ -93,15 +92,14 @@ if (mysqli_num_rows($result) > 0) {
         
     }
     echo"</table>";
+    mysqli_free_result($result2);
 }else{
     echo"<h2>no hot posts to show right now!</h2>";
 }
 
 mysqli_free_result($result);
-mysqli_free_result($result2);
 //close connection.
 mysqli_close($connection);
-mysqli_close($connection2);
 
 ?>
 

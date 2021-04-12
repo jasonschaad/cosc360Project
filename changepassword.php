@@ -4,7 +4,7 @@ session_start();
 
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
 <head>
 <title>Nerd Forum</title>
 <?php include ('head.php'); ?>
@@ -16,7 +16,7 @@ function checkPasswordMatch(e) {
   var password = document.getElementById("newpassword");;
   var passwordcheck = document.getElementById("newpassword2");
   if (password.value != passwordcheck.value) {
-    alert("Passwords must be the same. Please try again.");
+    $("#statusText").html("Passwords must be the same. Please try again.");
     makeRed(password);
     makeRed(passwordcheck);
     e.preventDefault();
@@ -24,15 +24,20 @@ function checkPasswordMatch(e) {
 }
 
 function onChangePasswordRejected() {
-  
+  makeRed(document.getElementByid("oldpassword"));
+  $("#statustext").html("Error: Old password is incorrect.");
 }
 function onChangePasswordSuccess() {
-
+  makeClean(document.getElementById("oldpassword"));
+  $("#statustext").html("Success! Your password has been updated.");
 }
 
 $(function() {
   // fetch from DOM
   var OldPassword = document.getElementById('oldpassword').value;
+  $("#oldpassword").keydown(function() {
+    makeClean(this);
+  });
 
   $("#oldpassword").blur(function(){    
     // fetch from DOM
@@ -45,7 +50,7 @@ $(function() {
       },
       type: 'POST',
       context: document.body
-      }).done(function(data) {
+    }).done(function(data) {
         console.log(data);
         if (data == 'Match') {
           onChangePasswordRejected();
@@ -102,7 +107,7 @@ echo "<br />\n";
 echo "<label for='newpassword2'>Retype new password:</label>\n";
 echo "<input type='password' name='newpassword2' id='newpassword2' class='required'/> \n";
 
-echo "<br /><br />";
+echo "<br /><p id='statustext'></p><br />";
 echo "<input type='submit' value='Change Password'>";
 echo "</fieldset>";
 echo "</form>";

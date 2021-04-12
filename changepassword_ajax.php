@@ -31,6 +31,7 @@ else {
 
 	// exit conditions
 	if ($OldPassword == '') {
+		http_response_code(400);
 		$output = "<p>Old password must not be blank.</p>";
 		$output .= "<p><a href='changepassword.php'>Return to change password</a></p>";
 		mysqli_close($connection);
@@ -48,7 +49,8 @@ else {
 	$number_of_rows = mysqli_num_rows($result);
 
 	// exit if no rows found
-	if ($number_of_rows == 0) { 
+	if ($number_of_rows == 0) {
+		http_response_code(400);
 		$output = "<p>No match found.</p>";
 		$output .= "<p><a href='changepassword.php'>Return to change password</a></p>";
 		mysqli_close($connection);
@@ -61,9 +63,11 @@ else {
 	$OldPasswordHash = md5($OldPassword);
 	
 	if ($OldPasswordHash == $PasswordHash) {
+		http_response_code(200);
 		echo "Match";
 	}
 	else {
+		http_response_code(404);
 		echo "No Match";
 		return;
 	}

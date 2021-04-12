@@ -1,13 +1,9 @@
 <?php
 // Start the session
 session_start();
-?>
-<!DOCTYPE html>
-<head>
-<title>Nerd Forum</title>
-</head>
-<body>
-<?php
+
+$PAGENAME = 'Password Reset';
+include 'head.php';
 
 function randomPassword() {
   $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
@@ -129,6 +125,6 @@ else {
   
 }
 
+include 'foot.php';
+
 ?>
-</body>
-</html>

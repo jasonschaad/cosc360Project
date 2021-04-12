@@ -1,14 +1,8 @@
 <?php
 // Start the session
 session_start();
-?>
-<!DOCTYPE html>
-<head>
-<title>Nerd Forum</title>
-<?php include ('head.php'); ?>
-</head>
-<body>
-<?php
+
+include 'head.php';
 
 // Confirm we have a POST request
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -98,11 +92,11 @@ else {
   else {
     echo "<p>The username and/or password are invalid.</p>";
     // not authenticated
-    $_SESSION["SecurityLevel"] = 0;
+    $_SESSION["securityLevel"] = 0;
   }
   
 }
 
+include 'foot.php';
+
 ?>
-</body>
-</html>

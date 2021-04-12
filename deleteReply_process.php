@@ -1,22 +1,15 @@
 <?php
 // Start the session
 session_start();
-?>
-<!DOCTYPE html>
-<html>
-<head>
-<title>Nerd Forum</title>
-<?php include ('head.php'); ?>
-</head>
-<body>
-<?php 
+
+include 'head.php';
+
 //add code to verify security level so non-admins cannot delete post via modifying url
-if(!isset($_SESSION['securityLevel']) || $_SESSION["securityLevel"]!= 2){
+if (!isset($_SESSION['securityLevel']) || $_SESSION["securityLevel"]!= 2) {
     echo"you need to be an admin to access this page. </br>";
     echo"<a href = 'index.php'>Return to Home Page</a>";
-    die();
-}else{
-    include('header.php');
+} else {
+    
     include 'dbhosts.php';
     //make connection
     $connection = mysqli_connect($host, $user, $password, $database);
@@ -41,6 +34,7 @@ if(!isset($_SESSION['securityLevel']) || $_SESSION["securityLevel"]!= 2){
     header("Location: forumReply.php?postID=$postID");
     
 }
+
+include 'foot.php';
+
 ?>
-</body>
-</html>

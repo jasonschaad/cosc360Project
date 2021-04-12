@@ -2,18 +2,14 @@
 // Start the session
 session_start();
 
-?>
-<!DOCTYPE html>
-<html>
-<head>
-<title>Nerd Forum</title>
-<?php include ('head.php'); ?>
+$PAGENAME = 'Edit User';
+$HEAD = '
 <script type="text/javascript" src="scripts/validate.js"></script>
 
 <script type="text/javascript">
 
 function checkPasswordMatch(e) {
-  var password = document.getElementById("password");;
+  var password = document.getElementById("password");
   var passwordcheck = document.getElementById("password-check");
   if (password.value != passwordcheck.value) {
     alert("Passwords must be the same. Please try again.");
@@ -24,12 +20,11 @@ function checkPasswordMatch(e) {
 }
 
 </script>
+';
 
-</head>
-<body>
-<?php 
+include 'head.php';
 
-include('header.php');
+
 
 // OK if userID is empty - create user
 if (empty($_GET)) {
@@ -171,8 +166,7 @@ else {
     echo "<p><a href='changepassword.php'>Change password</a></p>\n";
   }
 }
+
+include 'foot.php';
+
 ?>
-
-</body>
-</html>
-

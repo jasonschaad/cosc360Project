@@ -1,26 +1,15 @@
 <?php
 // Start the session
 session_start();
-?>
-<!DOCTYPE html>
-<html>
-<head>
-<title>Nerd Forum</title>
-<?php include ('head.php'); ?>
+
+$HEAD = '
 <script type="text/javascript" src="scripts/validate.js"></script>
-
-
-</head>
-<body>
-<?php 
-
-include('header.php');
+';
+include 'head.php';
 
 echo "<p><a href='searchUser.php'>Search by User</a></p>";
 echo "<p><a href='searchForum.php'>Search Forum</a></p>";
 
+include 'foot.php';
+
 ?>
-
-</body>
-</html>
-

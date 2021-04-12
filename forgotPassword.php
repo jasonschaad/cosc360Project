@@ -1,16 +1,16 @@
 <?php
 // Start the session
 session_start();
-?>
-<!DOCTYPE html>
-<html>
-<head>
-<title>Nerd Forum</title>
+
+$PAGENAME = 'Forgot Password';
+$HEAD = '
 <script type="text/javascript" src="scripts/validate.js"></script>
+';
 
-</head>
-<body>
+include 'head.php';
 
+
+?>
 <p>To reset your password please enter your email address.</p>
 
 <form method="post" action="forgotPassword_process.php" id="mainForm" >
@@ -21,6 +21,6 @@ session_start();
   <input type="submit" value="Reset Password">
 </form>
 
-</body>
-</html>
-
+<?php
+include 'foot.php';
+?>

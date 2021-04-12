@@ -1,11 +1,9 @@
 <?php
 // Start the session
 session_start();
-?>
-<!DOCTYPE html>
 
-<html>
-<head>
+$PAGENAME = 'Posts';
+$HEAD = '
 <style>
         /* added temporary styles for visualization :) */
         #table-test td{border: 1px solid black;}
@@ -21,12 +19,8 @@ session_start();
         });
     });
 </script>
-<title>Nerd Forum</title>
-<?php include('head.php');?>
-</head>
-<body>
-<?php
-include 'header.php';
+';
+include 'head.php';
 
 $categoryID = $_GET["categoryID"];
 
@@ -96,7 +90,7 @@ echo"</div>";
 mysqli_close($connection);
 mysqli_close($connection2);
 
-if(isset($_SESSION['securityLevel']) && $_SESSION["securityLevel"]== 1 || $_SESSION["securityLevel"] == 2){
+if(isset($_SESSION['securityLevel']) && ($_SESSION["securityLevel"]== 1 || $_SESSION["securityLevel"] == 2)){
 
     echo "<form method='post' action='forumPost_process.php' id='postForm' enctype='multipart/form-data'>\n";
     echo "<fieldset>\n";
@@ -114,7 +108,6 @@ if(isset($_SESSION['securityLevel']) && $_SESSION["securityLevel"]== 1 || $_SESS
 
 }
 
-?>
+include 'foot.php';
 
-</body>
-</html>
+?>

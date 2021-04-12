@@ -6,7 +6,7 @@ session_start();
 <html>
 <head>
 <title>Nerd Forum</title>
-<?php include ('head.php'); ?>
+<?php include 'head.php'; ?>
 </head>
 <body>
 <?php 
@@ -15,7 +15,7 @@ if(!isset($_SESSION['securityLevel']) || $_SESSION["securityLevel"] != 2){
     echo"Error!";
 }
 else{
-    include('header.php');
+    
     include 'dbhosts.php';
     //make connection
     $connection = mysqli_connect($host, $user, $password, $database);
@@ -49,6 +49,6 @@ else{
 
     }
 
+include 'foot.php';
+
 ?>
-</body>
-</html>

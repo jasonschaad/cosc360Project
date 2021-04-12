@@ -1,11 +1,8 @@
 <?php
 // Start the session
 session_start();
-?>
-<!DOCTYPE html>
 
-<html>
-<head>
+$HEAD = '
     <style>
         /* added temporary styles for visualization :) */
         #table-test td{border: 1px solid black;}
@@ -22,13 +19,8 @@ session_start();
             });
         });
     </script>
-    <?php include('head.php'); ?>
-    <title>Nerd Forum</title>
-</head>
-<body>
-<?php
-
-    include 'header.php';
+';
+include 'head.php';
 
     include 'dbhosts.php';
     $connection = mysqli_connect($host, $user, $password, $database);
@@ -39,7 +31,8 @@ session_start();
     exit($output);
     } 
     $postId = $_GET["postID"];
-    $sessionuserID = $_SESSION["userID"];
+    // commented out to avoid errors for unauthenticated users. Also this wasn't being used anyways.
+    // $sessionuserID = $_SESSION["userID"];
     $nocache = rand(1,9999);
     $dir = "files";
     
@@ -115,7 +108,7 @@ session_start();
     //##MODIFY CODE LATER - add if statement to check if users are logged in (Security level > 0).
 
     //ensure this code only shows up for users (securitylevel ==1) or admins (securitylevel ==2)
-    if(isset($_SESSION['securityLevel']) && $_SESSION["securityLevel"]== 1 || $_SESSION["securityLevel"] == 2){
+    if(isset($_SESSION['securityLevel']) && ($_SESSION["securityLevel"]== 1 || $_SESSION["securityLevel"] == 2)){
 
         echo "<form method='post' action='forumReply_process.php' id='replyForm' enctype='multipart/form-data'>\n";
         echo "<fieldset>\n";
@@ -130,12 +123,8 @@ session_start();
 
     }
 
- 
+mysqli_close($connection);
 
-    
-    mysqli_close($connection);
+include 'foot.php';
 
 ?>
-
-</body>
-</html>

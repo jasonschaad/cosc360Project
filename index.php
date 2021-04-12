@@ -1,26 +1,17 @@
 <?php
 // Start the session
 session_start();
-?>
-<!DOCTYPE html>
 
-<html lang="en-US">
-<head>
-    <style>
-        /* added temporary styles for visualization :) */
-        #table-test td{border: 1px solid black;}
-        #table-test{border: 1px solid black; margin-left: auto; margin-right: auto; width: 80%; text-align: center;}
-        h1, h2{text-align: center;}
-        
-    </style>
-    <?php include('head.php'); ?>
-    <title>Nerd Forum</title>
-</head>
-<body>
-
-<?php
-
-include 'header.php';
+$HEAD = '
+<style>
+    /* added temporary styles for visualization :) */
+    #table-test td{border: 1px solid black;}
+    #table-test{border: 1px solid black; margin-left: auto; margin-right: auto; width: 80%; text-align: center;}
+    h1, h2{text-align: center;}
+    
+</style>
+';
+include('head.php');
 
 echo "<h1>Welcome to NerdForum</h1>";
 //creating table to display all post categories.
@@ -101,8 +92,6 @@ mysqli_free_result($result);
 //close connection.
 mysqli_close($connection);
 
+include 'foot.php';
+
 ?>
-
-
-</body>
-</html>

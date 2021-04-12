@@ -2,18 +2,14 @@
 // Start the session
 session_start();
 
-?>
-<!DOCTYPE html>
-<html lang="en-US">
-<head>
-<title>Nerd Forum</title>
-<?php include ('head.php'); ?>
+$PAGENAME = "Change Password";
+$HEAD = '
 <script type="text/javascript" src="scripts/validate.js"></script>
 
 <script type="text/javascript">
 
 function checkPasswordMatch(e) {
-  var password = document.getElementById("newpassword");;
+  var password = document.getElementById("newpassword");
   var passwordcheck = document.getElementById("newpassword2");
   if (password.value != passwordcheck.value) {
     $("#statusText").html("Passwords must be the same. Please try again.");
@@ -34,25 +30,25 @@ function onChangePasswordSuccess() {
 
 $(function() {
   // fetch from DOM
-  var OldPassword = document.getElementById('oldpassword').value;
+  var OldPassword = document.getElementById("oldpassword").value;
   $("#oldpassword").keydown(function() {
     makeClean(this);
   });
 
-  $("#oldpassword").blur(function(){    
+  $("#oldpassword").blur(function(){
     // fetch from DOM
-    var OldPassword = document.getElementById('oldpassword').value;
+    var OldPassword = document.getElementById("oldpassword").value;
     $.ajax({
       url: "changepassword_ajax.php",
       async: true,
       data: {
         OldPassword: OldPassword
       },
-      type: 'POST',
+      type: "POST",
       context: document.body
     }).done(function(data) {
         console.log(data);
-        if (data == 'Match') {
+        if (data == "Match") {
           onChangePasswordRejected();
         }
         else {
@@ -63,12 +59,11 @@ $(function() {
 });
 
 </script>
+';
 
-</head>
-<body>
-<?php 
+include 'head.php';
 
-include('header.php');
+
 
 $userID = $_SESSION['userID']; 
 
@@ -111,9 +106,7 @@ echo "<br /><p id='statustext'></p><br />";
 echo "<input type='submit' value='Change Password'>";
 echo "</fieldset>";
 echo "</form>";
-  
+
+include 'foot.php';
+
 ?>
-
-</body>
-</html>
-

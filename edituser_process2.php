@@ -1,14 +1,8 @@
 <?php
 // Start the session
 session_start();
-?>
-<!DOCTYPE html>
-<head>
-<title>Nerd Forum</title>
-<?php include ('head.php'); ?>
-</head>
-<body>
-<?php
+
+include 'head.php';
 
 $type = $_GET['type'];
 $error = $_GET['error'];
@@ -21,7 +15,7 @@ if (($type != "create") && ($type != "update")) {
   exit($output);
 }
 
-if (empty($firstName) || empty($firstName)) {
+if (!isset($firstName) || empty($firstName)) {
   $output = "<p>You can only access this page from the user creation form.</p>";
   $output .= "<p><a href='index.php'>Return home and try again<</a></p>";
   exit($output);
@@ -31,15 +25,16 @@ if ($error) {
   echo "<p>File size must be 1MB or less. Your file was not processed.</p>\n";
 }
 
+
+echo "<p><img src='images/accept32.png'> Successfully created user. ";
 if ($type == "create") {
-  include('header.php'); 
-  echo "<p><img src='images/accept32.png'> Successfully created user. Please login.</p>\n";
+  echo "Please login.";
 }
 else {
-  include('header.php');
-  echo "<p><img src='images/accept32.png'> Successfully updated user. You may have to logout and back in again for change to show</p>\n";
+  echo "You may have to logout and back in again for change to show.";
 }
+echo "</p>\n";
+
+include 'foot.php';
 
 ?>
-</body>
-</html>

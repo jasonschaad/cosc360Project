@@ -1,17 +1,9 @@
 <?php
 // Start the session
 session_start();
-?>
-<!DOCTYPE html>
-<html>
-<head>
-<title>Nerd Forum</title>
-<?php include ('head.php'); ?>
-</head>
-<body>
-<?php 
 
-include('header.php');
+include 'head.php';
+
 include 'dbhosts.php';
 //make connection
 $connection = mysqli_connect($host, $user, $password, $database);
@@ -57,6 +49,7 @@ else{
     echo"<a href = 'forumReply.php?postID=$postId'>Return to thread</a>";
 
 }
+
+include 'foot.php';
+
 ?>
-</body>
-</html>

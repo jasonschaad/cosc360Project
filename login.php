@@ -1,18 +1,13 @@
 <?php
 // Start the session
 session_start();
-?>
-<!DOCTYPE html>
-<html>
-<head>
-<title>Nerd Forum</title>
-<?php include ('head.php'); ?>
+
+$PAGENAME = 'Login';
+$HEAD = '
 <script type="text/javascript" src="scripts/validate.js"></script>
-
-</head>
-<body>
-<?php include('header.php');?>
-
+';
+include 'head.php';
+?>
 all default passwords are "password" (no quotes)
 login is your first name all lowercase
 
@@ -37,6 +32,8 @@ login is your first name all lowercase
   <a href="edituser.php">Create new account</a>
 </div>
 
-</body>
-</html>
+<?php
 
+include 'foot.php';
+
+?>

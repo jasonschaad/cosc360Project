@@ -1,18 +1,11 @@
 <?php
 // Start the session
 session_start();
-?>
-<!DOCTYPE html>
-<html>
-<head>
-<title>Nerd Forum</title>
-<?php include ('head.php'); ?>
+
+$HEAD = '
 <script type="text/javascript" src="scripts/validate.js"></script>
-
-
-</head>
-<body>
-<?php 
+';
+include 'head.php';
 
 // gets
 if (!empty($_GET)) {
@@ -21,8 +14,6 @@ if (!empty($_GET)) {
 else {
 	$userID = "";
 }
-
-include('header.php');
 
 echo "<form id='main' method='get' action='searchUser.php'>";
 
@@ -147,9 +138,7 @@ if (!empty($userID)) {
 	// Close the database
 	mysqli_close($connection);	
 }
-	
+
+include 'foot.php';
+
 ?>
-
-</body>
-</html>
-

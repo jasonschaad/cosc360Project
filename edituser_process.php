@@ -1,14 +1,8 @@
 <?php
 // Start the session
 session_start();
-?>
-<!DOCTYPE html>
-<head>
-<title>Nerd Forum</title>
-<?php include ('head.php'); ?>
-</head>
-<body>
-<?php
+
+include 'head.php';
 
 // Confirm we have a POST request
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -207,6 +201,6 @@ else {
   
 }
 
+include 'foot.php';
+
 ?>
-</body>
-</html>

@@ -8,7 +8,7 @@
 #header a.main {
   font-size: 1.25rem;
   padding: 0 1em;
-  color: var(--c-on-secondary);
+  color: var(--c-on-primary);
 }
 #header a.menuItem:first-child,
 #header a.main:first-child {

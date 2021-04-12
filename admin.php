@@ -1,16 +1,9 @@
 <?php
 // Start the session
 session_start();
-?>
-<!DOCTYPE html>
-<html>
-<head>
-<title>Nerd Forum</title>
-<?php include ('head.php'); ?>
 
-</head>
-<body>
-<?php 
+$PAGENAME = "Admin";
+include 'head.php';
 
 // gets
 if (!empty($_GET)) {
@@ -27,34 +20,32 @@ else {
 	$emailSearch = "";
 }
 
-include('header.php');
-
-echo "<form id='main' method='get' action='admin.php'>";
-
 /////////////////////////////////////////////
 // begin searchbar (not much of a searchbar)
 /////////////////////////////////////////////
 
 // Build the form
-echo "<form method='post' action='edituser_process.php' id='mainForm'>\n";
-echo "<fieldset>\n";
-echo "<legend>Filter Users</legend>\n";
-echo "<label for='username'>Username:</label>\n";
-echo "<input type='text' name='userNameSearch' id='userNameSearch' value='$userNameSearch'>\n";
-echo "<br />\n";
-echo "<label for='firstNameSearch'>First Name:</label>\n";
-echo "<input type='text' name='firstNameSearch' id='firstNameSearch' value='$firstNameSearch'>\n";
-echo "<br />\n";
-echo "<label for='lastNameSearch'>Last Name:</label>\n";
-echo "<input type='text' name='lastNameSearch' id='lastNameSearch' value='$lastNameSearch'>\n";
-echo "<br />\n";
-echo "<label for='emailSearch'>Email:</label>\n";
-echo "<input type='text' name='emailSearch' id='emailSearch' value='$emailSearch'>\n";
-echo "<br />\n";
-echo "<br />\n";
-echo "<input type='submit' value='Search'>";
-echo "</fieldset>";
-echo "</form>";
+?>
+<form id='main' method='get' action='admin.php'>
+	<fieldset>
+		<legend>Filter Users</legend>
+		<label for='username'>Username:</label>
+		<input type='text' name='userNameSearch' id='userNameSearch' value='<?php echo $userNameSearch;?>'>
+		<br />
+		<label for='firstNameSearch'>First Name:</label>
+		<input type='text' name='firstNameSearch' id='firstNameSearch' value='<?php echo $firstNameSearch;?>'>
+		<br />
+		<label for='lastNameSearch'>Last Name:</label>
+		<input type='text' name='lastNameSearch' id='lastNameSearch' value='<?php echo $lastNameSearch;?>'>
+		<br />
+		<label for='emailSearch'>Email:</label>
+		<input type='text' name='emailSearch' id='emailSearch' value='<?php echo $emailSearch;?>'>
+		<br />
+		<br />
+		<input type='submit' value='Search'>
+	</fieldset>
+</form>
+<?php
 
 //////////////////////////////
 // end of search bar
@@ -111,8 +102,5 @@ mysqli_stmt_close($preparedStatement);
 
 echo"</table>";
 
+include 'foot.php';
 ?>
-
-</body>
-</html>
-

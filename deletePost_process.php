@@ -11,7 +11,7 @@ session_start();
 <body>
 <?php 
 //add code to verify security level so non-admins cannot delete post via modifying url
-if($_SESSION["securityLevel"]!= 2){
+if(!isset($_SESSION['securityLevel']) || $_SESSION["securityLevel"] != 2){
     echo"Error!";
 }
 else{

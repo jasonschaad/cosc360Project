@@ -58,7 +58,7 @@ echo"<th>Title</th>";
 echo"<th>Author</th>";
 echo"<th>Post Date</th>";
 echo"<th>Replies</th>";
-if($_SESSION["securityLevel"]== 2){
+if(isset($_SESSION['securityLevel']) && $_SESSION["securityLevel"]== 2){
     echo"<th>Remove a Post</th>";
 }
 echo"</tr>";
@@ -79,7 +79,7 @@ while(mysqli_stmt_fetch($preparedStatement)){
     echo"<td >$usernamecol</td>";
     echo"<td>$postDate</td>";
     echo"<td>$tempcount</td>";
-    if($_SESSION["securityLevel"]== 2){
+    if(isset($_SESSION['securityLevel']) && $_SESSION["securityLevel"]== 2){
         echo"<td><button><a href = 'deletePost_process.php?postID=$postID&categoryID=$categoryID'>Remove</a></button></td>";
     }
     
@@ -96,7 +96,7 @@ echo"</div>";
 mysqli_close($connection);
 mysqli_close($connection2);
 
-if($_SESSION["securityLevel"]== 1 || $_SESSION["securityLevel"] == 2){
+if(isset($_SESSION['securityLevel']) && $_SESSION["securityLevel"]== 1 || $_SESSION["securityLevel"] == 2){
 
     echo "<form method='post' action='forumPost_process.php' id='postForm' enctype='multipart/form-data'>\n";
     echo "<fieldset>\n";

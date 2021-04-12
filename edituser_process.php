@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $lastName = addslashes($_POST['lastName']); 
   $email = addslashes($_POST['email']); 
   $userID = $_POST['userID'];
-  if ($_SESSION['securityLevel'] == 2) {  
+  if (isset($_SESSION['securityLevel']) && $_SESSION['securityLevel'] == 2) {  
     $active = $_POST['active'];
     if (($active != 0) && ($active != 1)) {
       $output = "<p>You can only access this page from the user creation form.</p>";
@@ -148,7 +148,7 @@ else {
     // Update username, firstName, lastName, email
     ////////////////////////////////////////////////
     // Update the user except password
-    if ($_SESSION['securityLevel'] == 2) { 
+    if (isset($_SESSION['securityLevel']) && $_SESSION['securityLevel'] == 2) { 
       $sql = "UPDATE users SET username=?, firstName=?, lastName=?, email=?, active=? WHERE id=?";
     }
     else {
@@ -158,7 +158,7 @@ else {
     if ($preparedStatement === false) {
       die("prepare failed: " . htmlspecialchars(mysqli_error($connection)));
     }
-    if ($_SESSION['securityLevel'] == 2) { 
+    if (isset($_SESSION['securityLevel']) && $_SESSION['securityLevel'] == 2) { 
      mysqli_stmt_bind_param($preparedStatement, "ssssii", $username, $firstName, $lastName, $email, $active, $userID, );
     }
     else {

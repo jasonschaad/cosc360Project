@@ -121,7 +121,7 @@ else {
     echo "<br />\n";
     
     echo "<label for='password-check'>Re-enter Password:</label>\n";
-    echo "<input type='password-check' name='password-check' id='password-check' class='required' />\n";
+    echo "<input type='password' name='password-check' id='password-check' class='required' />\n";
     echo "<br />\n";
   }
   
@@ -146,7 +146,7 @@ else {
   
   echo "<br />\n";
   
-  if ($_SESSION['securityLevel'] == 2) {
+  if (isset($_SESSION['securityLevel']) && $_SESSION['securityLevel'] == 2) {
     
     echo "<label for='active'>Active:</label>\n";
     echo "<select name='active' id='active'>\n";

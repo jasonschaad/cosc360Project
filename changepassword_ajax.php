@@ -4,7 +4,7 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 $isAuthorized = 0;
 
-if ($_SESSION['securityLevel'] >= 1) {
+if (isset($_SESSION['securityLevel']) && $_SESSION['securityLevel'] >= 1) {
 	$isAuthorized = 1;
 }
 

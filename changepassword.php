@@ -23,6 +23,13 @@ function checkPasswordMatch(e) {
   }
 }
 
+function onChangePasswordRejected() {
+  
+}
+function onChangePasswordSuccess() {
+
+}
+
 $(function() {
   // fetch from DOM
   var OldPassword = document.getElementById('oldpassword').value;
@@ -41,10 +48,10 @@ $(function() {
       }).done(function(data) {
         console.log(data);
         if (data == 'Match') {
-          alert('Old password is correct. This message is just to show we are using ajax.');
+          onChangePasswordRejected();
         }
         else {
-          alert('Old password is incorrect.');
+          onChangePasswordSuccess();
         }
     });
   });

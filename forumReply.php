@@ -105,7 +105,7 @@ session_start();
         echo"<article class = 'placeholder-main-content'>";
         echo "$replyContent";
         echo"</article>";
-        if($_SESSION["securityLevel"]== 2){
+        if(isset($_SESSION['securityLevel']) && $_SESSION["securityLevel"]== 2){
             echo"<td><button><a href = 'deleteReply_process.php?&replyID=$replyID&postID=$replyPostID'>Remove Reply</a></button></td>";
         }
         echo"</div>";
@@ -115,7 +115,7 @@ session_start();
     //##MODIFY CODE LATER - add if statement to check if users are logged in (Security level > 0).
 
     //ensure this code only shows up for users (securitylevel ==1) or admins (securitylevel ==2)
-    if($_SESSION["securityLevel"]== 1 || $_SESSION["securityLevel"] == 2){
+    if(isset($_SESSION['securityLevel']) && $_SESSION["securityLevel"]== 1 || $_SESSION["securityLevel"] == 2){
 
         echo "<form method='post' action='forumReply_process.php' id='replyForm' enctype='multipart/form-data'>\n";
         echo "<fieldset>\n";

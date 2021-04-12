@@ -17,7 +17,7 @@
 <?php 
 
 if (!empty($_SESSION)) {
-	if ($_SESSION["securityLevel"] > 0) {
+	if (isset($_SESSION['securityLevel']) && $_SESSION["securityLevel"] > 0) {
 		$tempName = $_SESSION["firstName"]." ".$_SESSION["lastName"];
 		$tempuserID = $_SESSION["userID"]; 
 		

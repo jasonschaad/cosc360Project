@@ -20,7 +20,6 @@ $HEAD = '
     });
 </script>
 ';
-include 'head.php';
 
 $categoryID = $_GET["categoryID"];
 
@@ -36,6 +35,25 @@ if($error != null) {
   $output = "<p>Unable to connect to database!</p>";
   exit($output);
 } 
+$sql = "SELECT categoryName FROM category WHERE ID = ?";
+$preparedStatement = mysqli_prepare($connection, $sql);
+if ($preparedStatement === false) {
+    die("prepare failed: " . htmlspecialchars(mysqli_error($connection)));
+}
+$categoryName = "Posts";
+mysqli_stmt_bind_param($preparedStatement, "s", $categoryID); 
+mysqli_stmt_execute($preparedStatement);
+mysqli_stmt_bind_result($preparedStatement, $categoryName);
+mysqli_stmt_fetch($preparedStatement);
+mysqli_stmt_close($preparedStatement);
+$PAGENAME = "$categoryName";
+$BREADCRUMB = array(
+    array("name" => "Categories"),
+    array("href" => "forumPost.php?categoryID=$categoryID", "name" => "$categoryName")
+);
+
+include 'head.php';
+
 $sql = "SELECT title, CAST(postContent AS VARCHAR(100)), users.username, DATE_FORMAT(postDate, '%M %e, %Y %l:%i %p'), posts.ID FROM posts JOIN users ON postUserId = users.ID WHERE postCategoryId = ?";
 $preparedStatement = mysqli_prepare($connection, $sql);
 if ($preparedStatement === false) {
@@ -59,12 +77,12 @@ echo"</tr>";
 
 
 while(mysqli_stmt_fetch($preparedStatement)){
-    $sql2 = "SELECT COUNT(ID) FROM replies WHERE replyPostId=$postID ORDER BY replyPostId";
+    $sql2 = "SELECT COUNT(ID) AS myCount FROM replies WHERE replyPostId=$postID ORDER BY replyPostId";
     $result = mysqli_query($connection2, $sql2);
 
     while ($row = mysqli_fetch_assoc($result))
     {
-    $tempcount = $row['COUNT(ID)'];
+    $tempcount = $row['myCount'];
     }
 
 

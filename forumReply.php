@@ -20,7 +20,6 @@ $HEAD = '
         });
     </script>
 ';
-include 'head.php';
 
     include 'dbhosts.php';
     $connection = mysqli_connect($host, $user, $password, $database);
@@ -36,6 +35,30 @@ include 'head.php';
     $nocache = rand(1,9999);
     $dir = "files";
     
+    $sql = "SELECT categoryName, category.ID AS categoryID, posts.title AS title, posts.ID FROM category LEFT JOIN posts ON postCategoryId = category.ID WHERE posts.ID = ?";
+    $preparedStatement = mysqli_prepare($connection, $sql);
+    if ($preparedStatement === false) {
+        die("prepare failed: " . htmlspecialchars(mysqli_error($connection)));
+    }
+    $categoryName = "Posts";
+    $categoryID = 1;
+    $postTitle = "Some Post";
+    $throwaway = 1;
+    mysqli_stmt_bind_param($preparedStatement, "i", $postID); 
+    mysqli_stmt_execute($preparedStatement);
+    mysqli_stmt_bind_result($preparedStatement, $categoryName, $categoryID, $postTitle, $throwaway);
+    mysqli_stmt_fetch($preparedStatement);
+    mysqli_stmt_close($preparedStatement);
+    $PAGENAME = "$categoryName";
+    $BREADCRUMB = array(
+        array("name" => "Categories"),
+        array("href" => "forumPost.php?categoryID=$categoryID", "name" => $categoryName),
+        array("name" => "Posts"),
+        array("href" => "forumReply.php?postID=$postID", "name" => $postTitle),
+    );
+
+    include 'head.php';
+
 
     $sql = "SELECT title, DATE_FORMAT(postDate, '%M %e, %Y %l:%i %p') as formattedDate, postContent, users.username AS userName, users.ID FROM posts JOIN users ON postUserId = users.ID WHERE posts.ID = ?";
     $preparedStatement = mysqli_prepare($connection, $sql);

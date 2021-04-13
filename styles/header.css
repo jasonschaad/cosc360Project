@@ -67,8 +67,17 @@
   #header.closed a.menuItem {
     display: none !important;
   }
-  #header.open a.menuItem {
+  #header.open a.menuItem,
+  #header a.main {
     display: block !important;
+  }
+  #header.closed a.main {
+    border-bottom: 1px solid rgba(255, 255, 255, 0);
+    transition: border 0.4s ease-in-out;
+  }
+  #header.open a.main {
+    border-bottom: 1px solid rgba(255, 255, 255, 1);
+    transition: border 0.4s ease-in-out;
   }
   #header a.menuItem {
     padding: 0.5em 0;
@@ -76,4 +85,23 @@
   #header a.menuItem:last-child {
     padding-bottom: 0;
   }
+}
+
+#breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+#breadcrumb a,
+#breadcrumb p {
+  margin: 0.5em;
+}
+#breadcrumb a:not(:first-child)::before,
+#breadcrumb p:not(:first-child)::before {
+  content: "\203A";
+  display: inline-block;
+  margin-right: 0.75em;
+  color: black;
 }

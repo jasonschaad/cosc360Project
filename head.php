@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
-    <title>Nerd Forum<?php echo isset($PAGENAME) && !empty($PAGENAME) ? "| $PAGENAME" : ""; ?></title>
+    <title><?php echo isset($PAGENAME) && !empty($PAGENAME) ? "$PAGENAME | " : ""; ?>Nerd Forum</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preconnect" href="https://fonts.gstatic.com">

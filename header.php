@@ -13,7 +13,7 @@
 		});
 	</script>
 	<nav>
-		<a class="main" href="index.php">Home</a>
+		<a class="main computerFont" href="index.php">Nerd Forum</a>
 <?php 
 
 if (!empty($_SESSION)) {
@@ -36,4 +36,17 @@ if (!empty($_SESSION)) {
 }
 ?>
 	</nav>
+</div>
+<div id="breadcrumb">
+	<a href="index.php">&#x1F3E0; Home</a>
+<?php if (isset($BREADCRUMB) && is_array($BREADCRUMB)) {
+	for ($i = 0; $i < count($BREADCRUMB); $i++) {
+		$item = $BREADCRUMB[$i];
+		if (isset($item['href'])) {
+			echo "\t<a href='".$item['href']."'>".$item['name']."</a>\n";
+		} else {
+			echo "\t<p>".$item['name']."</p>\n";
+		}
+	}
+}?>
 </div>

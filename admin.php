@@ -106,5 +106,16 @@ mysqli_stmt_close($preparedStatement);
 
 echo"</table>";
 
+//adding 'activity by date' function
+echo"<h2>View Activity by Date:</h2>";
+echo"<form id = 'activityDate' method = 'POST' action = 'activityByDate.php'>";
+echo"<fieldset>";
+echo"<label for='actDate'>Choose Date: </label>";
+echo"<input type = 'date' id = 'placeholder-actDate' name = 'actDate'>";
+echo"<input type='submit' value='See Activity'>";
+
+echo"</fieldset>";
+echo"</form>";
+
 include 'foot.php';
 ?>

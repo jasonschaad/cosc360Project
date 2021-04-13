@@ -91,6 +91,7 @@ if (!empty($keyword)) {
 			echo "<td>$content</td>\n";
 			echo"</tr>\n";
 		}
+		echo"</table>";
 	}
 	else {
 		echo "<p>No posts were found.</p>\n";
@@ -99,7 +100,7 @@ if (!empty($keyword)) {
 	// Close the statement
 	mysqli_stmt_close($preparedStatement);
 	
-	echo"</table>";
+	
 		
 	echo "<p>Checking Replies</p>";
 	
@@ -135,6 +136,7 @@ if (!empty($keyword)) {
 			echo "<td>$content</td>\n";
 			echo"</tr>\n";
 		}
+		echo"</table>";
 	}
 	else {
 		echo "<p>No replies were found.</p>\n";	
@@ -143,7 +145,7 @@ if (!empty($keyword)) {
 	// Close the statement
 	mysqli_stmt_close($preparedStatement);
 	
-	echo"</table>";
+	
 	
 	// Close the database
 	mysqli_close($connection);	

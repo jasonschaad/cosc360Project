@@ -6,6 +6,10 @@ $PAGENAME = 'Forgot Password';
 $HEAD = '
 <script type="text/javascript" src="scripts/validate.js"></script>
 ';
+$BREADCRUMB =  array(
+  array("href" => "login.php", "name" => "Login"),
+  array("href" => "forgotPassword.php", "name" => "Forgot Password")
+);
 
 include 'head.php';
 

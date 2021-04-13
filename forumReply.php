@@ -30,7 +30,7 @@ $HEAD = '
     exit($output);
     } 
     $postId = $_GET["postID"];
-    echo "=> $postId <==";
+    // echo "=> $postId <==";
     // commented out to avoid errors for unauthenticated users. Also this wasn't being used anyways.
     // $sessionuserID = $_SESSION["userID"];
     $nocache = rand(1,9999);
@@ -50,7 +50,7 @@ $HEAD = '
     mysqli_stmt_bind_result($preparedStatement, $categoryName, $categoryID, $postTitle, $throwaway);
     mysqli_stmt_fetch($preparedStatement);
     
-    echo "cN ==>$categoryName <===";
+    // echo "cN ==>$categoryName <===";
     
     mysqli_stmt_close($preparedStatement);
     $PAGENAME = "$categoryName";
@@ -58,7 +58,7 @@ $HEAD = '
         array("name" => "Categories"),
         array("href" => "forumPost.php?categoryID=$categoryID", "name" => $categoryName),
         array("name" => "Posts"),
-        array("href" => "forumReply.php?postID=$postID", "name" => $postTitle),
+        array("href" => "forumReply.php?postID=$postId", "name" => $postTitle),
     );
 
     include 'head.php';

@@ -8,6 +8,7 @@ session_unset();
 // destroy the session
 session_destroy();
 
+$PAGENAME = "Logged Out";
 include 'head.php';
 
 echo "<p>You have successfully logged out. </p>\n";

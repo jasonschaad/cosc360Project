@@ -3,6 +3,10 @@
 session_start();
 
 $PAGENAME = "Admin";
+
+$BREADCRUMB =  array(
+  array("href" => "admin.php", "name" => "Admin")
+);
 include 'head.php';
 
 // gets

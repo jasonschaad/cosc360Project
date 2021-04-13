@@ -60,6 +60,9 @@ $(function() {
 
 </script>
 ';
+$BREADCRUMB =  array(
+  array("href" => "changepassword.php", "name" => "Change Password")
+);
 
 include 'head.php';
 

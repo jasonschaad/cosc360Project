@@ -39,3 +39,40 @@ a:hover,
 a:visited {
   color: var(--c-extra-darker);
 }
+.mainContent {
+  padding: 1em;
+}
+table {
+  border-top-left-radius: 0.5em;
+  border-top-right-radius: 0.5em;
+  -webkit-box-shadow: -3px 3px 2px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: -3px 3px 2px 0px rgba(0, 0, 0, 0.3);
+  border-collapse: collapse;
+}
+th {
+  background: var(--c-accent);
+  color: var(--c-on-accent);
+  text-align: left;
+  padding-left: 1em;
+  padding-right: 1em;
+  background: linear-gradient(
+    0deg,
+    var(--c-accent-darker) 0%,
+    var(--c-accent-lighter) 100%
+  );
+}
+table tr {
+  width: 100%;
+}
+table td {
+  border: 1px solid var(--c-primary);
+}
+table > *:first-child > *:first-child > *:first-child {
+  border-top-left-radius: 0.5em;
+}
+table > *:first-child > *:first-child > *:last-child {
+  border-top-right-radius: 0.5em;
+}
+.categoryTable {
+  width: 100%;
+}

@@ -21,17 +21,18 @@ function checkPasswordMatch(e) {
 
 </script>
 ';
-
-include 'head.php';
-
-
+$BREADCRUMB =  array(
+  array("href" => "login.php", "name" => "Login")
+);
 
 // OK if userID is empty - create user
 if (empty($_GET)) {
   $userID = "";
+  array_push($BREADCRUMB, array("href" => "edituser.php", "name" => "Create New Account"));
 } 
 else {
   $userID = $_GET['ID']; 
+  array_push($BREADCRUMB, array("href" => "edituser.php?ID=$userID", "name" => "Account Settings"));
 }
 
 $isProblem = 0 ;
@@ -50,6 +51,7 @@ if ($isProblem) {
   exit($output);
 }
 
+include 'head.php';
 // All good we can connect to database now
 include 'dbhosts.php';
 

@@ -6,6 +6,9 @@ $PAGENAME = 'Login';
 $HEAD = '
 <script type="text/javascript" src="scripts/validate.js"></script>
 ';
+$BREADCRUMB =  array(
+  array("href" => "login.php", "name" => "Login")
+);
 include 'head.php';
 ?>
 all default passwords are "password" (no quotes)

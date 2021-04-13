@@ -2,6 +2,10 @@
 // Start the session
 session_start();
 
+$PAGENAME = "Logged In";
+$BREADCRUMB =  array(
+  array("href" => "login.php", "name" => "Login")
+);
 include 'head.php';
 
 // Confirm we have a POST request

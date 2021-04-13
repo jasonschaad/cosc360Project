@@ -3,6 +3,11 @@
 session_start();
 
 $PAGENAME = 'Password Reset';
+
+$BREADCRUMB =  array(
+  array("href" => "login.php", "name" => "Login"),
+  array("name" => "Reset Password")
+);
 include 'head.php';
 
 function randomPassword() {

@@ -2,9 +2,14 @@
 // Start the session
 session_start();
 
+$PAGENAME = "Search Forums";
 $HEAD = '
 <script type="text/javascript" src="scripts/validate.js"></script>
 ';
+$BREADCRUMB =  array(
+  array("href" => "search.php", "name" => "Search"),
+	array("href" => "searchForum.php", "name" => "Search Forums")
+);
 include 'head.php';
 
 // gets

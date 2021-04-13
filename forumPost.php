@@ -48,7 +48,7 @@ $BREADCRUMB = array(
 
 include 'head.php';
 
-$sql = "SELECT title, CAST(postContent AS VARCHAR(100)), users.username, DATE_FORMAT(postDate, '%M %e, %Y %l:%i %p'), posts.ID FROM posts JOIN users ON postUserId = users.ID WHERE postCategoryId = ?";
+$sql = "SELECT title, postContent, users.username, DATE_FORMAT(postDate, '%M %e, %Y %l:%i %p'), posts.ID FROM posts JOIN users ON postUserId = users.ID WHERE postCategoryId = ?";
 $preparedStatement = mysqli_prepare($connection, $sql);
 if ($preparedStatement === false) {
     die("prepare failed: " . htmlspecialchars(mysqli_error($connection)));

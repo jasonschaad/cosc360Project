@@ -4,13 +4,6 @@ session_start();
 
 $PAGENAME = 'Posts';
 $HEAD = '
-<style>
-        /* added temporary styles for visualization :) */
-        #table-test td{border: 1px solid black;}
-        #table-test{border: 1px solid black; margin-left: auto; margin-right: auto; width: 80%; text-align: center;}
-        h1 {text-align: center;}
-        
-</style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     $(document).ready(function(){

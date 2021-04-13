@@ -6,7 +6,7 @@ include('head.php');
 
 echo "<h1>Welcome to NerdForum</h1>";
 //creating table to display all post categories.
-echo"<table id = 'table-test' class='categoryTable'>";
+echo"<table id = 'table-test'>";
 echo"<tr>";
 echo"<th>Categories</th>";
 echo"</tr>";
@@ -42,7 +42,7 @@ $sql = "select count(replies.ID) as numReply, replyPostId from replies where rep
 $result = mysqli_query($connection, $sql);
 if (mysqli_num_rows($result) > 0) {
     echo"<h2 style = >Hot Posts!!!</h2>";
-    echo"<table id = 'table-test' class='categoryTable'>";
+    echo"<table id = 'table-test'>";
     echo"<tr>";
     echo"<th>Category</th>";
     echo"<th>Title</th>";

@@ -64,29 +64,33 @@ echo"<th>Title</th>";
 echo"<th>Author</th>";
 echo"<th>Post Date</th>";
 echo"<th>Replies</th>";
-if(isset($_SESSION['securityLevel']) && $_SESSION["securityLevel"]== 2){
-    echo"<th>Remove a Post</th>";
+if(isset($_SESSION['securityLevel']) && $_SESSION["securityLevel"] == 2){
+    echo"<th>Admin</th>";
 }
 echo"</tr>";
 
 
-while(mysqli_stmt_fetch($preparedStatement)){
+while(mysqli_stmt_fetch($preparedStatement)) {
     $sql2 = "SELECT COUNT(ID) AS myCount FROM replies WHERE replyPostId=$postID ORDER BY replyPostId";
     $result = mysqli_query($connection2, $sql2);
 
-    while ($row = mysqli_fetch_assoc($result))
-    {
-    $tempcount = $row['myCount'];
+    while ($row = mysqli_fetch_assoc($result)) {
+      $tempcount = $row['myCount'];
     }
-
 
     echo"<tr>";
     echo"<td><a href = 'forumReply.php?postID=$postID'>$postTitle</a></td>";
     echo"<td >$usernamecol</td>";
     echo"<td>$postDate</td>";
     echo"<td>$tempcount</td>";
-    if(isset($_SESSION['securityLevel']) && $_SESSION["securityLevel"]== 2){
-        echo"<td><button><a href = 'deletePost_process.php?postID=$postID&categoryID=$categoryID'>Remove</a></button></td>";
+    if(isset($_SESSION['securityLevel']) && $_SESSION["securityLevel"] == 2){
+        // Edit
+        echo"<td>\n";
+        echo "<button><a href = 'editPost.php?postID=$postID&categoryID=$categoryID'>Edit</a></button>\n";
+        // Remove
+        echo"<button><a href = 'deletePost_process.php?postID=$postID&categoryID=$categoryID'>Remove</a></button>\n";
+        echo "</td>";
+       
     }
     
     echo"</tr>";

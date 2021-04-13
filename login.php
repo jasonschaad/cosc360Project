@@ -11,8 +11,6 @@ $BREADCRUMB =  array(
 );
 include 'head.php';
 ?>
-all default passwords are "password" (no quotes)
-login is your first name all lowercase
 
 <form method="post" action="login_process.php" id="mainForm" >
   Username:<br>

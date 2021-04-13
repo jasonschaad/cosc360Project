@@ -5,7 +5,7 @@ session_start();
 include 'head.php';
 
 //add code to verify security level so non-admins cannot delete post via modifying url
-if (!isset($_SESSION['securityLevel']) || $_SESSION["securityLevel"]!= 2) {
+if (!isset($_SESSION['securityLevel']) || $_SESSION["securityLevel"] != 2) {
     echo"you need to be an admin to access this page. </br>";
     echo"<a href = 'index.php'>Return to Home Page</a>";
 } else {

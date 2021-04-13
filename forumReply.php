@@ -118,8 +118,11 @@ $HEAD = '
         echo"<article class = 'placeholder-main-content'>";
         echo "$replyContent";
         echo"</article>";
-        if(isset($_SESSION['securityLevel']) && $_SESSION["securityLevel"]== 2){
-            echo"<td><button><a href = 'deleteReply_process.php?&replyID=$replyID&postID=$replyPostID'>Remove Reply</a></button></td>";
+        if(isset($_SESSION['securityLevel']) && $_SESSION["securityLevel"] == 2){
+            echo "<td>\n";
+            echo "<button><a href = 'editReply.php?&replyID=$replyID&postID=$replyPostID&categoryID=$categoryID'>Edit Reply</a></button>";
+            echo "<button><a href = 'deleteReply_process.php?&replyID=$replyID&postID=$replyPostID'>Remove Reply</a></button>";
+            echo"<td>\n";
         }
         echo"</div>";
     }

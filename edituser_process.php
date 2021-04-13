@@ -7,10 +7,10 @@ include 'head.php';
 // Confirm we have a POST request
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // collect value of input fields
-  $username = addslashes($_POST['username']); 
-  $firstName = addslashes($_POST['firstName']); 
-  $lastName = addslashes($_POST['lastName']); 
-  $email = addslashes($_POST['email']); 
+  $username = $_POST['username']; 
+  $firstName = $_POST['firstName']; 
+  $lastName = $_POST['lastName']; 
+  $email = $_POST['email']; 
   $userID = $_POST['userID'];
   if (isset($_SESSION['securityLevel']) && $_SESSION['securityLevel'] == 2) {  
     $active = $_POST['active'];

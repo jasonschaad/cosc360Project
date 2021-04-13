@@ -58,13 +58,6 @@ if (!empty($keyword)) {
 	
 	echo "<p>Checking Posts</p>";
 	
-	echo "<table id = 'table-test'>";
-	echo "<tr>\n";
-	echo "<th>Details</th>\n";
-	echo "<th>Title</th>\n";
-	echo "<th>Content</th>\n";
-	echo"</tr>\n";
-	
 	// list posts first
 	$param1 = "%$keyword%";
 	$sql = "SELECT ID,title,postContent FROM posts
@@ -78,12 +71,29 @@ if (!empty($keyword)) {
 	mysqli_stmt_execute($preparedStatement);
 	mysqli_stmt_bind_result($preparedStatement, $postsID, $title, $content);
 	
-	while(mysqli_stmt_fetch($preparedStatement)){
+	// store result
+	mysqli_stmt_store_result($preparedStatement);
+	$num_rows = mysqli_stmt_num_rows($preparedStatement);
+	
+	if ($num_rows > 0) {
+		echo "<table id = 'table-test'>";
 		echo "<tr>\n";
-		echo "<td><a href='forumReply.php?postID=$postsID'><img src='images/about24.png' alt='Go to Post' /></a></td>\n";
-		echo "<td>$title</td>\n";
-		echo "<td>$content</td>\n";
+		echo "<th>Details</th>\n";
+		echo "<th>Title</th>\n";
+		echo "<th>Content</th>\n";
 		echo"</tr>\n";
+		
+	
+		while(mysqli_stmt_fetch($preparedStatement)){
+			echo "<tr>\n";
+			echo "<td><a href='forumReply.php?postID=$postsID'><img src='images/about24.png' alt='Go to Post' /></a></td>\n";
+			echo "<td>$title</td>\n";
+			echo "<td>$content</td>\n";
+			echo"</tr>\n";
+		}
+	}
+	else {
+		echo "<p>No posts were found.</p>\n";
 	}
 	
 	// Close the statement
@@ -92,13 +102,6 @@ if (!empty($keyword)) {
 	echo"</table>";
 		
 	echo "<p>Checking Replies</p>";
-	
-	echo "<table id = 'table-test'>";
-	echo "<tr>\n";
-	echo "<th>Details</th>\n";
-	echo "<th>Username</th>\n";
-	echo "<th>Content</th>\n";
-	echo"</tr>\n";
 	
 	// now replies
 	
@@ -114,11 +117,27 @@ if (!empty($keyword)) {
 	mysqli_stmt_execute($preparedStatement);
 	mysqli_stmt_bind_result($preparedStatement, $postsID, $content);
 	
-	while(mysqli_stmt_fetch($preparedStatement)){
+	// store result
+	mysqli_stmt_store_result($preparedStatement);
+	$num_rows = mysqli_stmt_num_rows($preparedStatement);
+	
+	if ($num_rows > 0) {
+		echo "<table id = 'table-test'>";
 		echo "<tr>\n";
-		echo "<td><a href='forumReply.php?postID=$postsID'><img src='images/about24.png' alt='Go to Post' /></a></td>\n";
-		echo "<td>$content</td>\n";
-		echo"</tr>\n";
+		echo "<th>Details</th>\n";
+		echo "<th>Username</th>\n";
+		echo "<th>Content</th>\n";
+		echo"</tr>\n";	
+	
+		while(mysqli_stmt_fetch($preparedStatement)){
+			echo "<tr>\n";
+			echo "<td><a href='forumReply.php?postID=$postsID'><img src='images/about24.png' alt='Go to Post' /></a></td>\n";
+			echo "<td>$content</td>\n";
+			echo"</tr>\n";
+		}
+	}
+	else {
+		echo "<p>No replies were found.</p>\n";	
 	}
 	
 	// Close the statement

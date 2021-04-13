@@ -8,6 +8,7 @@ $HEAD = '
 <script>
     $(document).ready(function(){
         $("#hide").click(function(){
+            $("#hide").html($("#hide").html().substr(0, 1) == "C" ? "Show Posts" : "Collapse Posts");
             $("#posts_collapse").fadeToggle();
         });
     });

@@ -7,6 +7,7 @@ $HEAD = '
     <script>
         $(document).ready(function(){
             $("#hide").click(function(){
+                $("#hide").html($("#hide").html().substr(0, 1) == "C" ? "Show Replies" : "Collapse Replies");
                 $("#replies_collapse").fadeToggle();
             });
         });
@@ -68,15 +69,15 @@ $HEAD = '
     echo"<div class = 'placeholder-post-container'>";
     while (mysqli_stmt_fetch($preparedStatement)){
         echo"<article class = 'placeholder-user-info'>";
-        echo"<i>Posted by: $author on $postDate</i> </br>";
+        echo"<i>Posted on $postDate</i>";
+        echo"<div class='avatar'>";
         if (file_exists("{$dir}/"."$postUserId.jpg")) {
-            
             echo "<img src='files/$postUserId.jpg?$nocache' alt='photo' width='96px' height = '125px' />";
-          }
-          else {
-            
+        } else {
             echo "<img src='images/anonymous.png?$nocache' alt='photo'  />\n ";
-          }
+        }
+        echo"</div>";
+        echo "<p class='author'>$author</p>";
         //echo"<figure><img src = '$postID.jpg'></img></figure>";
         echo"</article>";
         echo"<article class = 'placeholder-main-content'>";
@@ -103,15 +104,15 @@ $HEAD = '
     while (mysqli_stmt_fetch($preparedStatement)){
         echo"<div class = 'placeholder-post-container'>";
         echo"<article class = 'placeholder-user-info'>";
-        echo"<i>Posted by: $author on $replyDate</i></br>";
+        echo"<i>Posted on $replyDate</i>";
+        echo"<div class='avatar'>";
         if (file_exists("{$dir}/"."$usersID.jpg")) {
-            
             echo "<img src='files/$usersID.jpg?$nocache' alt='photo' width='96px' height = '125px' />";
-          }
-          else {
-            
+        } else {
             echo "<img src='images/anonymous.png?$nocache' alt='photo'  />\n ";
-          }
+        }
+        echo"</div>";
+        echo "<p class='author'>$author</p>";
         //echo"<figure><img src = '$postID.jpg'></img></figure>";
         echo"</article>";
         echo"<article class = 'placeholder-main-content'>";

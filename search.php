@@ -11,8 +11,9 @@ $BREADCRUMB =  array(
 );
 include 'head.php';
 
-echo "<p><a href='searchUser.php'>Search by User</a></p>";
-echo "<p><a href='searchForum.php'>Search Forum</a></p>";
+echo "<a href='searchUser.php' class='button'>Search by User</a>";
+echo "<br />";
+echo "<a href='searchForum.php' class='button'>Search Forum</a>";
 
 include 'foot.php';
 

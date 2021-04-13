@@ -65,7 +65,6 @@ else {
   // Update title and content
   /////////////////////////////
 
-
   $sql = "UPDATE replies SET Content = ? WHERE ID = ?";
   
   $preparedStatement = mysqli_prepare($connection, $sql);

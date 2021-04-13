@@ -8,7 +8,7 @@ $HEAD = '
 
 ';
 
-$categoryID = $_GET['postID']; 
+$categoryID = $_GET['categoryID']; 
 $postID = $_GET['postID']; 
 
 if (empty($categoryID) || (empty($postID))) {

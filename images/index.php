@@ -1,6 +1,5 @@
 <?php
-// as an easy way to prevent users from browsing server folders without using .htaccess
-$parent = dirname($_SERVER['REQUEST_URI']);
-header("Location: $parent/index.php");
+// an easy way to prevent users from browsing server folders without using .htaccess
+header("Location: index.php");
 exit();
 ?>

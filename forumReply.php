@@ -30,6 +30,7 @@ $HEAD = '
     exit($output);
     } 
     $postId = $_GET["postID"];
+    echo "=> $postId <==";
     // commented out to avoid errors for unauthenticated users. Also this wasn't being used anyways.
     // $sessionuserID = $_SESSION["userID"];
     $nocache = rand(1,9999);
@@ -40,14 +41,17 @@ $HEAD = '
     if ($preparedStatement === false) {
         die("prepare failed: " . htmlspecialchars(mysqli_error($connection)));
     }
-    $categoryName = "Posts";
-    $categoryID = 1;
-    $postTitle = "Some Post";
-    $throwaway = 1;
-    mysqli_stmt_bind_param($preparedStatement, "i", $postID); 
+    //$categoryName = "Posts";
+    //$categoryID = 1;
+    //$postTitle = "Some Post";
+    //$throwaway = 1;
+    mysqli_stmt_bind_param($preparedStatement, "i", $postId); 
     mysqli_stmt_execute($preparedStatement);
     mysqli_stmt_bind_result($preparedStatement, $categoryName, $categoryID, $postTitle, $throwaway);
     mysqli_stmt_fetch($preparedStatement);
+    
+    echo "cN ==>$categoryName <===";
+    
     mysqli_stmt_close($preparedStatement);
     $PAGENAME = "$categoryName";
     $BREADCRUMB = array(

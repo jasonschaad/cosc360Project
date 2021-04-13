@@ -1,11 +1,13 @@
 <?php
 // Start the session
 session_start();
-//# WILL DO MINOR CHANGES LATER, THIS WORKS FOR NOW
-if(empty($_SESSION)){
-    echo"you shouldn't be on this page!";
-    die();
+
+if (!isset($_SESSION['securityLevel']) && $_SESSION['securityLevel'] != 2) {  
+	$output = "<p>You must be an admin to access this page.</p>";
+	$output .= "<p><a href='index.php'>Return home and try again</a></p>";
+	exit($output);
 }
+	
 $PAGENAME = "Activity by Date";
 
 $BREADCRUMB =  array(

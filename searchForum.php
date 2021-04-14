@@ -61,13 +61,13 @@ if (!empty($keyword)) {
 	// list posts first
 	$param1 = "%$keyword%";
 	$sql = "SELECT ID,title,postContent FROM posts
-				WHERE postContent LIKE ?";
+				WHERE postContent LIKE ? OR title LIKE ?";
 	
 	$preparedStatement = mysqli_prepare($connection, $sql);
 	if ($preparedStatement === false) {
 		die("prepare failed: " . htmlspecialchars(mysqli_error($connection)));
 	}
-	mysqli_stmt_bind_param($preparedStatement, "s", $param1); 
+	mysqli_stmt_bind_param($preparedStatement, "ss", $param1,$param1); 
 	mysqli_stmt_execute($preparedStatement);
 	mysqli_stmt_bind_result($preparedStatement, $postsID, $title, $content);
 	
@@ -126,7 +126,6 @@ if (!empty($keyword)) {
 		echo "<table id = 'table-test'>";
 		echo "<tr>\n";
 		echo "<th>Details</th>\n";
-		echo "<th>Username</th>\n";
 		echo "<th>Content</th>\n";
 		echo"</tr>\n";	
 	

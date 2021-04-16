@@ -20,12 +20,12 @@ function checkPasswordMatch(e) {
 }
 
 function onChangePasswordRejected() {
-  makeRed(document.getElementByid("oldpassword"));
+  makeRed(document.getElementById("oldpassword"));
   $("#statustext").html("Error: Old password is incorrect.");
 }
 function onChangePasswordSuccess() {
   makeClean(document.getElementById("oldpassword"));
-  $("#statustext").html("Success! Your password has been updated.");
+  $("#statustext").html("Success! Your old password is correct.");
 }
 
 $(function() {
@@ -49,10 +49,10 @@ $(function() {
     }).done(function(data) {
         console.log(data);
         if (data == "Match") {
-          onChangePasswordRejected();
+          onChangePasswordSuccess();
         }
         else {
-          onChangePasswordSuccess();
+          onChangePasswordRejected();
         }
     });
   });

@@ -67,7 +67,7 @@ else {
 		echo "Match";
 	}
 	else {
-		http_response_code(404);
+		http_response_code(200);
 		echo "No Match";
 		return;
 	}
